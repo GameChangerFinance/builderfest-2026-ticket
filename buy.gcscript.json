@@ -1,0 +1,218 @@
+{
+    "type": "script",
+    "title": "🚀 Buy BuilderFest 2026 ticket",
+    "description": "Change the ticket cost (lovelaces) according rules and time of purchase, otherwise will fail!. Solution provided with love by GameChanger Wallet team. Use at your own risk, is a dev challenge",
+    "require":{
+        "networkTag":"mainnet"
+    },
+    "exportAs": "TicketData",
+    "args":{
+        "ISSUER_BEACON_POLICY":"e1ddde8138579e255482791d9fba0778cb1f5c7b435be7b3e42069de",
+        "ISSUER_BEACON_NAME":"425549444c45524645535432303236",
+        "TREASURY":"addr1qx0decp93g2kwym5cz0p68thamd2t9pehlxqe02qae5r6nycv42qmjppm2rr8fj6qlzfhm6ljkd5f0tjlgudtmt5kzyqmy8x82",
+        "ISSUER_SCRIPT_REF":"31596ecbdcf102c8e5c17e75c65cf9780996285879d18903f035964f3a7499a8#0",
+        "TICKET_POLICY":"1d9c0b541adc300c19ddc6b9fb63c0bfe32b1508305ba65b8762dc7b",
+        "ISSUER":"addr1wywecz65rtwrqrqemhrtn7mrczl7x2c4pqc9hfjmsa3dc7cr5pvqw",
+        "TICKET_PRICE":"100000",
+
+        "script-lang": "plutus_v3",
+        "script-size": 2679,
+        "script-utxo-hash":"31596ecbdcf102c8e5c17e75c65cf9780996285879d18903f035964f3a7499a8",
+        "script-utxo-index":0
+    },
+    "return": {
+        "mode": "last"
+    },
+    "run": {
+        "myAddress": {
+            "type": "getCurrentAddress"
+        },
+        "beacon":{
+            "type":"query",
+            "get":{
+                "kind"          :"BeaconToken",
+                "asset": {
+                    "policyId"      :"{get('args.ISSUER_BEACON_POLICY')}",
+                    "assetNameHex"  :"{get('args.ISSUER_BEACON_NAME')}"
+                },
+                "address":"{get('args.ISSUER')}"
+            }
+        },
+        "ticketNumber":{
+            "type":"macro",
+            "run":{
+                "current": "{get('cache.beacon.datum.data.obj.fields.0.int')}",
+                "next"   : "{jsonToObj( addBigNum( get('cache.beacon.datum.data.obj.fields.0.int'), 1 ) )}"
+            }
+        },
+        "currentState": {
+            "type": "plutusData",
+            "data": {
+                "fromJSON": {
+                    "schema": 1,
+                    "obj": {
+                        "constructor": 0,
+                        "fields": [
+                            {
+                                "int": "{get('cache.ticketNumber.current')}"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "nextState": {
+            "type": "plutusData",
+            "data": {
+                "fromJSON": {
+                    "schema": 1,
+                    "obj": {
+                        "constructor": 0,
+                        "fields": [
+                            {
+                                "int": "{get('cache.ticketNumber.next')}"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "ticketToken":{
+            "type":"macro",
+            "run":{
+                "policyId":"{get('args.TICKET_POLICY')}",
+                "assetName":"{replaceAll( 'TICKET%', '%', get('cache.ticketNumber.current') )}"
+            }
+        },
+        "currentSlotNumber": {
+            "type": "getCurrentSlot"
+        },
+        "build": {
+            "type": "buildTx",
+            "title": "{replaceAll( '🚀 BuilderFest 2026 Ticket #%', '%', get('cache.ticketNumber.current') )}",
+            "tx": {
+                "inputs":[{
+                        "txHash": "{get('cache.beacon.txHash')}",
+                        "index":  "{get('cache.beacon.index')}"
+                }],
+                "mints": [
+                    {
+                        "policyId": "{get('cache.ticketToken.policyId')}",
+                        "assets": [
+                            {
+                                "assetName": "{get('cache.ticketToken.assetName')}",
+                                "quantity": "1"
+                            }
+                        ]
+                    }
+                ],
+                "outputs": {
+                    "withPayment":{
+                        "address": "{get('args.TREASURY')}",
+                        "assets": [
+                            {
+                                "policyId": "ada",
+                                "assetName": "ada",
+                                "quantity": "{get('args.TICKET_PRICE')}"
+                            }
+                        ]                    
+                    },
+                    "withTicket":{
+                        "address": "{get('cache.myAddress')}",
+                        "assets": [
+                            {
+                                "policyId": "{get('cache.ticketToken.policyId')}",
+                                "assetName": "{get('cache.ticketToken.assetName')}",
+                                "quantity": "1"
+                            }
+                        ]
+                    },
+                    "withAdminTokenAndNextState":{
+                        "address": "{get('args.ISSUER')}",
+                        "assets": [
+                            {
+                                "policyId": "{get('args.ISSUER_BEACON_POLICY')}",
+                                "assetNameHex": "{get('args.ISSUER_BEACON_NAME')}",
+                                "quantity": "1"
+                            }
+                        ],
+                        "datum": {
+                            "datumHex": "{get('cache.nextState.dataHex')}"
+                        },
+                        "idPattern": "outputWithTheAdminTokenAndDatum"
+                    }
+                },
+                "witnesses": {
+                    "plutus": {
+                        "scripts": [
+                            {
+                                "scriptHashHex": "{get('args.TICKET_POLICY')}",
+                                "lang": "{get('args.script-lang')}",
+                                "scriptSize": "{get('args.script-size')}",
+                                "input": {
+                                    "txHash": "{get('args.script-utxo-hash')}",
+                                    "index": "{get('args.script-utxo-index')}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "ttl": {
+                    "from": "{get('cache.currentSlotNumber')}",
+                    "until": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                },
+                "auxiliaryData": {
+                    "674": {
+                        "msg": [
+                            "🚀 Cardano BuilderFest 2026 Registration:\n",
+                            "{replaceAll( '- Ticket: %', '%', get('cache.ticketNumber.current') )}",
+                            "\n",
+                            "{replaceAll( '- Cost: % lovelaces', '%', get('args.TICKET_PRICE') )}",
+                            "\n\n",
+                            "✨ Created with GCScript DSL v2.4.49-beta:\n",
+                            "- https://github.com/GameChangerFinance","/builderfest-2026-ticket\n",
+                            "- Need help? ask us at https://dsc.gg/gamechanger\n",
+                            "\n",
+                            "P.S.:🙏 Gracias por traer la BuilderFest"," a Argentina muchachos!\n"
+                        ]
+                    }
+                },
+                "options": {
+                    "collateralCoinSelection": "LASLAD"
+                }
+            }
+        },
+        "sign": {
+            "type": "signTxs",
+            "detailedPermissions": false,
+            "txs": [
+                "{get('cache.build.txHex')}"
+            ]
+        },
+        "submit": {
+            "type": "submitTxs",
+            "txs": "{get('cache.sign')}"
+        },
+        
+        "finally": {
+            "type": "macro",
+            "run": {
+                "txHash":"{get('cache.build.txHash')}",
+                "address":"{get('cache.myAddress')}",
+                "ticketToken":"{get('cache.ticketToken')}",
+                "ticketCost":"{get('args.TICKET_PRICE')}",
+                "ttl": {
+                    "from": "{get('cache.currentSlotNumber')}",
+                    "to":"{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                },
+                "newState":{
+                    "ticketNumber": "{get('cache.ticketNumber.next')}",
+                    "utxo": {
+                        "txHash": "{get('cache.build.txHash')}",
+                        "index": "{get('cache.build.indexMap.output.outputWithTheAdminTokenAndDatum')}"
+                    }
+                }
+            }
+        }
+    }
+}
