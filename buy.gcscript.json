@@ -159,7 +159,7 @@
                 },
                 "ttl": {
                     "from": "{get('cache.currentSlotNumber')}",
-                    "until": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                    "until": "{addBigNum(get('cache.currentSlotNumber'),'1200')}"
                 },
                 "auxiliaryData": {
                     "674": {
@@ -203,7 +203,7 @@
                 "ticketCost":"{get('args.TICKET_PRICE')}",
                 "ttl": {
                     "from": "{get('cache.currentSlotNumber')}",
-                    "to":"{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                    "to":"{addBigNum(get('cache.currentSlotNumber'),'1200')}"
                 },
                 "newState":{
                     "ticketNumber": "{get('cache.ticketNumber.next')}",
