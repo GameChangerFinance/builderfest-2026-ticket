@@ -1,0 +1,234 @@
+{
+    "type": "script",
+    "title": "Buy a ticket",
+    "description": "Purchase a ticket to participate in the event",
+    "exportAs": "TicketData",
+    "args": {
+        "script-lang": "plutus_v3",
+        "script-hash": "cbcc2b44f93e4ef6ed4a7860220cc74640b1d0c8129908a0165e5bf8",
+        "script-size": 2674,
+        "script-address": "addr_test1zr9uc26ylylyaahdffuxqgsvcarypvwseqffjz9qze09h7r94yyu35k68r5jxe7gam5hf3kehj0rptje8v3m4wkxjumssax94h",
+        "script-utxo-hash": "329c6742b79511458e9a6a077c57d0c6f9d048eca9eb7d859ad7f63ee6c2f3a1",
+        "script-utxo-index": 1,
+        "beacon-policyId": "8453db57f15bd9e657253daeac76c020c17533aff1dcba29a78f7348",
+        "beacon-assetNameHex": "41444d494e5f544f4b454e",
+        "treasury-address": "addr_test1qrl07u9ssdtdwtzhrt0zrrr79yejxhfvmsmjt9jxqyaz0ktp6ydulqht6r9z4ld0jms3a3c7gw45u32vhc2ftdp2f6rqvz02jw",
+        "ticket-cost": "5000000"
+    },
+    "return": {
+        "mode": "last"
+    },
+    "run": {
+        "myAddress": {
+            "type": "getCurrentAddress"
+        },
+        "wait": {
+            "type": "await",
+            "until": {
+                "beacon": {
+                    "address": "{get('args.script-address')}",
+                    "kind": "balance",
+                    "is": "equal",
+                    "asset": {
+                        "policyId": "{get('args.beacon-policyId')}",
+                        "assetNameHex": "{get('args.beacon-assetNameHex')}",
+                        "quantity": "1"
+                    }
+                }
+            }
+        },
+        "beacon": {
+            "type": "query",
+            "get": {
+                "kind": "BeaconToken",
+                "asset": {
+                    "policyId": "{get('args.beacon-policyId')}",
+                    "assetNameHex": "{get('args.beacon-assetNameHex')}"
+                },
+                "address": "{get('args.script-address')}"
+            }
+        },
+        "ticketNumber": {
+            "type": "macro",
+            "run": {
+                "current": "{get('cache.beacon.datum.data.obj.fields.0.int')}",
+                "next": "{jsonToObj( addBigNum( get('cache.beacon.datum.data.obj.fields.0.int'), 1 ) )}"
+            }
+        },
+        "currentState": {
+            "type": "plutusData",
+            "data": {
+                "fromJSON": {
+                    "schema": 1,
+                    "obj": {
+                        "constructor": 0,
+                        "fields": [
+                            {
+                                "int": "{get('cache.ticketNumber.current')}"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "nextState": {
+            "type": "plutusData",
+            "data": {
+                "fromJSON": {
+                    "schema": 1,
+                    "obj": {
+                        "constructor": 0,
+                        "fields": [
+                            {
+                                "int": "{get('cache.ticketNumber.next')}"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "ticketToken": {
+            "type": "macro",
+            "run": {
+                "policyId": "{get('args.script-hash')}",
+                "assetName": "{replaceAll( 'TICKET%', '%', get('cache.ticketNumber.current') )}"
+            }
+        },
+        "currentSlotNumber": {
+            "type": "getCurrentSlot"
+        },
+        "build": {
+            "type": "buildTx",
+            "title": "{replaceAll( '🚀 BuilderFest 2026 Ticket #%', '%', get('cache.ticketNumber.current') )}",
+            "tx": {
+                "inputs": [
+                    {
+                        "txHash": "{get('cache.beacon.txHash')}",
+                        "index": "{get('cache.beacon.index')}"
+                    }
+                ],
+                "mints": [
+                    {
+                        "policyId": "{get('cache.ticketToken.policyId')}",
+                        "assets": [
+                            {
+                                "assetName": "{get('cache.ticketToken.assetName')}",
+                                "quantity": "1"
+                            }
+                        ]
+                    }
+                ],
+                "outputs": {
+                    "withPayment": {
+                        "address": "{get('args.treasury-address')}",
+                        "assets": [
+                            {
+                                "policyId": "ada",
+                                "assetName": "ada",
+                                "quantity": "{addBigNum(get('args.ticket-cost'),0)}"
+                            }
+                        ]
+                    },
+                    "withTicket": {
+                        "address": "{get('cache.myAddress')}",
+                        "assets": [
+                            {
+                                "policyId": "{get('cache.ticketToken.policyId')}",
+                                "assetName": "{get('cache.ticketToken.assetName')}",
+                                "quantity": "1"
+                            }
+                        ]
+                    },
+                    "withAdminTokenAndNextState": {
+                        "address": "{get('args.script-address')}",
+                        "assets": [
+                            {
+                                "policyId": "{get('args.beacon-policyId')}",
+                                "assetNameHex": "{get('args.beacon-assetNameHex')}",
+                                "quantity": "1"
+                            }
+                        ],
+                        "datum": {
+                            "datumHex": "{get('cache.nextState.dataHex')}"
+                        },
+                        "idPattern": "outputWithTheAdminTokenAndDatum"
+                    }
+                },
+                "witnesses": {
+                    "plutus": {
+                        "scripts": [
+                            {
+                                "scriptHashHex": "{get('args.script-hash')}",
+                                "lang": "{get('args.script-lang')}",
+                                "scriptSize": "{get('args.script-size')}",
+                                "input": {
+                                    "txHash": "{get('args.script-utxo-hash')}",
+                                    "index": "{get('args.script-utxo-index')}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "ttl": {
+                    "from": "{get('cache.currentSlotNumber')}",
+                    "until": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                },
+                "auxiliaryData": {
+                    "674": {
+                        "msg": [
+                            "🚀 Cardano BuilderFest 2026 Registration:\n",
+                            "{replaceAll( '- Ticket: %', '%', get('cache.ticketNumber.current') )}",
+                            "\n",
+                            "{replaceAll( '- Cost: % lovelaces', '%', get('args.ticket-cost') )}",
+                            "\n\n",
+                            "✨ Created with GCScript DSL:\n",
+                            "- https://github.com/GameChangerFinance",
+                            "/builderfest-2026-ticket\n",
+                            "\n",
+                            "- Website: https://gamechanger.finance\n",
+                            "\n"
+                        ]
+                    }
+                },
+                "options": {
+                    "collateralCoinSelection": "LASLAD"
+                }
+            }
+        },
+        "sign": {
+            "type": "signTxs",
+            "detailedPermissions": false,
+            "txs": [
+                "{get('cache.build.txHex')}"
+            ]
+        },
+        "submit": {
+            "type": "submitTxs",
+            "mode": "noWait",
+            "txs": "{get('cache.sign')}"
+        },
+        "finally": {
+            "type": "macro",
+            "run": {
+                "{join('.',get('cache.ticketToken.policyId'),get('cache.ticketToken.assetName'))}": {
+                    "txHash": "{get('cache.build.txHash')}",
+                    "address": "{get('cache.myAddress')}",
+                    "ticketNumber": "{get('cache.ticketNumber.current')}",
+                    "ticketToken": "{get('cache.ticketToken')}",
+                    "ticketCost": "{get('args.ticket-cost')}",
+                    "ttl": {
+                        "from": "{get('cache.currentSlotNumber')}",
+                        "to": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                    },
+                    "newState": {
+                        "ticketNumber": "{get('cache.ticketNumber.next')}",
+                        "utxo": {
+                            "txHash": "{get('cache.build.txHash')}",
+                            "index": "{get('cache.build.indexMap.output.outputWithTheAdminTokenAndDatum')}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

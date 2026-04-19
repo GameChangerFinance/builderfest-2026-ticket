@@ -1,0 +1,2925 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b17">
+  <title>🚀 Builder Fest 2026</title>
+  <meta name="title" content="🚀 Builder Fest 2026">
+  <meta name="description" content="Review the action details below and continue in GameChanger Wallet.">
+
+  <!-- Use for local deployments or for testing the library: -->
+  <!-- <script src="res/browser.min.js"></script> -->
+  <!-- Use library from CDN: -->
+  <script src="https://cdn.jsdelivr.net/npm/@gamechanger-finance/gc@latest/dist/browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg2: #0d1330;
+      --fg: #eef7ff;
+      --muted: #93a6d8;
+      --line: #2ad4ff33;
+      --cyan: #29d7ff;
+      --blue: #4a7cff;
+      --violet: #8a5cff;
+      --magenta: #ff4fd8;
+      --panel: #0c1226cc;
+      --panel2: #0a1022f2;
+      --glass: #09112480;
+      --glass2: #ffffffa8;
+      --info: #63d5ff;
+      --success: #7dffb0;
+      --warn: #ffbd59;
+      --danger: #ff7198;
+      --mute: #93a6d8;
+      --infoLine: #63d5ff55;
+      --successLine: #7dffb055;
+      --warnLine: #ffbd5955;
+      --dangerLine: #ff719855;
+      --muteLine: #93a6d855;
+      --infoBg: #63d5ff14;
+      --successBg: #7dffb014;
+      --warnBg: #ffbd5914;
+      --dangerBg: #ff719814;
+      --muteBg: #93a6d814;
+      --r: 18px;
+      --grad: linear-gradient(90deg, var(--cyan), var(--blue), var(--violet), var(--magenta));
+      --glow: 0 0 0 1px #2ad4ff2e, 0 0 18px #4a7cff1f, 0 0 34px #8a5cff14
+    }
+
+    [data-theme="light"] {
+      --bg: #eef6ff;
+      --bg2: #dae7ff;
+      --fg: #091126;
+      --muted: #55648c;
+      --line: #4a7cff2b;
+      --panel: #ffffffcf;
+      --panel2: #ffffffef;
+      --info: #0a7db8;
+      --success: #137a43;
+      --warn: #9a6100;
+      --danger: #b4234e;
+      --mute: #55648c;
+      --infoLine: #0a7db833;
+      --successLine: #137a4333;
+      --warnLine: #9a610033;
+      --dangerLine: #b4234e33;
+      --muteLine: #55648c33;
+      --infoBg: #0a7db812;
+      --successBg: #137a4312;
+      --warnBg: #9a610012;
+      --dangerBg: #b4234e12;
+      --muteBg: #55648c12;
+      --glow: 0 0 0 1px #4a7cff26, 0 14px 34px #4a7cff18
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%
+    }
+
+    body {
+      font: 14px/1.45 Inter, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--fg);
+      background: radial-gradient(circle at 14% 12%, #29d7ff20, transparent 24%), radial-gradient(circle at 84% 18%, #8a5cff22, transparent 24%), radial-gradient(circle at 70% 82%, #ff4fd81a, transparent 22%), linear-gradient(180deg, var(--bg), var(--bg2))
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      outline: none
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word
+    }
+
+    .app {
+      margin: 0 auto;
+      padding: 5%
+    }
+
+    .hero,
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border-radius: var(--r);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(10px)
+    }
+
+    .hero {
+      padding: 20px;
+      margin-bottom: 16px
+    }
+
+    .hero__top,
+    .row,
+    .actions,
+    .connect-widget,
+    .connected-wallet,
+    .checkbox {
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .hero__top,
+    .row {
+      align-items: flex-start;
+      justify-content: space-between
+    }
+
+    .hero__tools {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 170px;
+      flex-wrap: wrap
+    }
+
+    .hero h1,
+    .intent-meta__title {
+      margin: 0;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.08
+    }
+
+    .hero p,
+    .muted,
+    .section-copy,
+    .hint,
+    .connected-wallet__sub,
+    .connected-wallet__address {
+      color: var(--muted)
+    }
+
+    .hero p {
+      margin: 8px 0 0;
+      max-width: 70ch
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 16px;
+      align-items: start
+    }
+
+    .layout--single {
+      grid-template-columns: minmax(0, 1fr)
+    }
+
+    .card {
+      padding: 18px
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px
+    }
+
+    .form-grid,
+    .mini-grid {
+      display: grid;
+      gap: 12px;
+      align-items: start
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr
+    }
+
+    .mini-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px
+    }
+
+    .control,
+    .field input,
+    .field textarea,
+    .field select,
+    .theme-select,
+    .connected-wallet {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 13px;
+      background: var(--glass);
+      color: var(--fg)
+    }
+
+    .theme-select {
+      width: auto
+    }
+
+    .connected-wallet {
+      gap: 12px;
+      box-shadow: var(--glow);
+      min-width: 0;
+      max-width: 100%;
+      padding: 10px 12px
+    }
+
+    .connected-wallet__meta {
+      display: grid;
+      gap: 2px;
+      min-width: 0
+    }
+
+    .connected-wallet__name,
+    .connected-wallet__sub,
+    .connected-wallet__address {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 240px
+    }
+
+    .connected-wallet__name {
+      font-weight: 700
+    }
+
+    [data-theme="light"] .control,
+    [data-theme="light"] .field input,
+    [data-theme="light"] .field textarea,
+    [data-theme="light"] .field select,
+    [data-theme="light"] .theme-select,
+    [data-theme="light"] .connected-wallet {
+      background: var(--glass2)
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      align-content: start;
+      align-self: start;
+      min-width: 0
+    }
+
+    .field--full {
+      grid-column: 1/-1
+    }
+
+    .field label,
+    .stat span {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em
+    }
+
+    .field textarea {
+      min-height: 108px;
+      resize: vertical
+    }
+
+    .checkbox {
+      min-height: 46px;
+      padding: 0 2px
+    }
+
+    .checkbox input {
+      width: 16px;
+      height: 16px
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: 15px;
+      color: var(--cyan)
+    }
+
+    .intent-meta {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid #4a7cff40;
+      background: linear-gradient(135deg, var(--bg), var(--bg2));
+      box-shadow: inset 0 0 0 1px #ffffff05, 0 0 24px #8a5cff14
+    }
+
+    .intent-meta__title {
+      font-size: 24px;
+      line-height: 1.12
+    }
+
+    .intent-meta__lead {
+      margin: 0;
+      font-size: 15px
+    }
+
+    .intent-meta__sub {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .card--info,
+    .tone--info {
+      border-color: var(--infoLine);
+      background: linear-gradient(180deg, var(--infoBg), var(--panel2))
+    }
+
+    .card--success,
+    .tone--success {
+      border-color: var(--successLine);
+      background: linear-gradient(180deg, var(--successBg), var(--panel2))
+    }
+
+    .card--warn,
+    .tone--warn {
+      border-color: var(--warnLine);
+      background: linear-gradient(180deg, var(--warnBg), var(--panel2))
+    }
+
+    .card--danger,
+    .tone--danger {
+      border-color: var(--dangerLine);
+      background: linear-gradient(180deg, var(--dangerBg), var(--panel2))
+    }
+
+    .card--mute,
+    .tone--mute {
+      border-color: var(--muteLine);
+      background: linear-gradient(180deg, var(--muteBg), var(--panel2))
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: var(--fg);
+      background: #ffffff06;
+      cursor: pointer;
+      transition: .15s transform, .15s opacity;
+      min-width: 0
+    }
+
+    .btn:hover {
+      transform: translateY(-1px)
+    }
+
+    .btn--ghost {
+      background: #ffffff03
+    }
+
+    .btn--primary {
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+      border-color: transparent;
+      background: var(--grad);
+      color: #fff;
+      font-weight: 700
+    }
+
+    .btn[disabled],
+    .btn[aria-disabled="true"] {
+      opacity: .55;
+      pointer-events: none
+    }
+
+    .actions {
+      flex-wrap: wrap;
+      align-items: stretch
+    }
+
+    #connect-link {
+      display: flex;
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+      order: 99
+    }
+
+    #connect-wallet-btn {
+      width: auto
+    }
+
+    .console {
+      min-height: 120px;
+      max-height: 420px;
+      overflow: auto;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #060c1fcb;
+      color: #cbf7ff
+    }
+
+    .empty {
+      color: var(--muted)
+    }
+
+    .status {
+      font-size: 12px;
+      min-height: 18px
+    }
+
+    .status--info {
+      color: var(--info)
+    }
+
+    .status--ok,
+    .status--success {
+      color: var(--success)
+    }
+
+    .status--warn {
+      color: var(--warn)
+    }
+
+    .status--err,
+    .status--danger {
+      color: var(--danger)
+    }
+
+    .status--mute {
+      color: var(--mute)
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    .stat {
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff04
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 15px;
+      color: var(--cyan)
+    }
+
+    .app-footer {
+      padding: 16px 0 0;
+      text-align: center
+    }
+
+    .app-footer__links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 0
+    }
+
+    .app-footer__links {
+      font-size: 12px
+    }
+
+    .app-footer__library {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 600
+    }
+
+    .app-footer a {
+      color: var(--blue)
+    }
+
+    .app-footer a:hover {
+      text-decoration: underline
+    }
+
+    .app-footer__text {
+      color: var(--muted)
+    }
+
+    @media (max-width:940px) {
+
+      .layout,
+      .layout--single,
+      .mini-grid {
+        grid-template-columns: 1fr
+      }
+
+      .hero__top {
+        flex-direction: column
+      }
+
+      .hero__tools {
+        width: 100%;
+        justify-content: flex-end
+      }
+
+      .connected-wallet {
+        width: 100%
+      }
+
+      .connected-wallet__name,
+      .connected-wallet__sub,
+      .connected-wallet__address {
+        max-width: none
+      }
+
+      .btn--primary,
+      #connect-link {
+        width: 100%;
+        max-width: 100%
+      }
+    }
+
+    #tickets-section{
+      margin-bottom:16px;
+    }
+
+    #tickets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .ticket-card {
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid var(--successLine);
+      border-radius: 16px;
+      background: linear-gradient(180deg, var(--successBg), var(--panel2));
+      box-shadow: inset 0 0 0 1px #ffffff05;
+      cursor: pointer;
+      transition: .15s transform, .15s box-shadow, .15s border-color;
+    }
+
+    .ticket-card:hover {
+      transform: translateY(-1px);
+    }
+
+    .ticket-card--selected {
+      border-color: #7dffb0aa;
+      background: linear-gradient(180deg, #7dffb022, var(--panel2));
+      box-shadow: 0 0 0 1px #7dffb055, 0 0 18px #7dffb033, 0 0 36px #7dffb022;
+    }
+
+    .ticket-card__eyebrow,
+    .ticket-card__footer-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .ticket-card__number {
+      margin: 0;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--success);
+      word-break: break-word;
+    }
+
+    .ticket-card__link {
+      min-width: 0;
+      color: var(--blue);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .ticket-card__link:hover {
+      text-decoration: underline;
+    }
+
+    .ticket-card__footer {
+      display: grid;
+      gap: 2px;
+      padding-top: 6px;
+      border-top: 1px solid var(--line);
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+  <div class="app">
+    <section class="hero">
+      <div class="hero__top">
+        <div>
+          <h1 id="app-title">🚀 Builder Fest 2026</h1>
+          <p id="app-copy">Review the action details below and continue in GameChanger Wallet.</p>
+        </div>
+        <div class="hero__tools">
+          <div id="connect-widget" class="connect-widget hidden">
+            <button id="connect-wallet-btn" class="btn btn--primary hidden" type="button">Connect wallet</button>
+            <div id="connected-wallet" class="connected-wallet hidden">
+              <div class="connected-wallet__meta">
+                <div id="connected-wallet-name" class="connected-wallet__name"></div>
+                <div id="connected-wallet-sub" class="connected-wallet__sub"></div>
+                <div id="connected-wallet-address" class="connected-wallet__address"></div>
+              </div>
+              <button id="disconnect-wallet-btn" class="btn btn--ghost" type="button">Disconnect</button>
+            </div>
+          </div>
+          <select id="theme-select" class="theme-select" aria-label="Theme">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section id="tickets-section" class="card stack card--success hidden">
+      <div>
+        <h2 class="section-title">You are participating!</h2>
+        <p class="section-copy status--mute">Click on hash to open in-wallet</p>
+        <div id="tickets-grid" class="tickets-grid"></div>
+      </div>
+    </section>
+
+    <main id="layout" class="layout layout--single">
+      <section id="migration-banner" class="card stack card--warn hidden">
+        <div>
+          <h2 class="section-title">Stored data update available</h2>
+          <p class="section-copy status--warn">This dapp version differs from previously saved local data.</p>
+          <div class="hint status--warn">Updating will replace saved local state with the latest app version. Previously
+            entered information may be lost.</div>
+        </div>
+        <div class="actions"><button id="migration-update-btn" class="btn btn--ghost" type="button">Update</button>
+        </div>
+      </section>
+
+      <section class="card stack">
+        <div class="form-grid">
+          <div id="intent-select-field" class="field">
+            <label for="intent-select">Action</label>
+            <select id="intent-select" class="control"></select>
+          </div>
+        </div>
+
+        <div id="intent-meta" class="intent-meta"></div>
+
+        <section id="args-section" class="stack hidden">
+          <div>
+            <h2 class="section-title">Details</h2>
+          </div>
+          <div id="args-form" class="form-grid"></div>
+        </section>
+
+        <div id="actions-section" class="actions">
+          <button id="reset-args-btn" class="btn btn--ghost" type="button">Reset</button>
+          <button id="toggle-options-btn" class="btn btn--ghost" type="button">Options</button>
+          <button id="copy-url-btn" class="btn btn--ghost" type="button">Copy link</button>
+          <a id="qr-link" class="btn btn--ghost" href="#" target="_blank" rel="noopener noreferrer">Open QR</a>
+          <a id="connect-link" class="btn btn--primary" href="#" target="gc_udc_popup"
+            rel="noopener noreferrer">Continue</a>
+        </div>
+        <div id="action-status" class="status"></div>
+        <div id="field-status" class="status"></div>
+
+        <div id="options-panel" class="stack hidden">
+          <div>
+            <h2 class="section-title">Options</h2>
+            <p class="section-copy">Advanced settings.</p>
+          </div>
+          <div id="options-form" class="form-grid"></div>
+          <div class="actions"><button id="reset-storage-btn" class="btn btn--ghost" type="button">Reset
+              storage</button></div>
+        </div>
+      </section>
+
+      <aside id="debug-panel" class="card stack hidden">
+        <div>
+          <h2 class="section-title">Persistent app state</h2>
+        </div>
+        <div class="mini-grid">
+          <div class="stat"><span>Selected intent</span><strong id="state-intent-key">-</strong></div>
+          <div class="stat"><span>Network</span><strong id="state-network">-</strong></div>
+          <div class="stat"><span>Stored intents</span><strong id="state-intent-count">-</strong></div>
+          <div class="stat"><span>Last result</span><strong id="state-last-result">-</strong></div>
+        </div>
+        <div>
+          <h3 class="section-title">Merged exports</h3>
+          <pre id="exports-box" class="console empty">No wallet exports captured yet.</pre>
+        </div>
+        <div>
+          <h3 class="section-title">Debug state</h3>
+          <pre id="state-box" class="console"></pre>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="app-footer" aria-label="Relevant links">
+      <h6 class="app-footer__links">
+        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/GameChangerOk">X</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/vpbfyRaDKG">Discord</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@gamechanger.finance">Youtube</a>
+        <a target="_blank" rel="noopener noreferrer"
+          href="https://github.com/GameChangerFinance/gamechanger.wallet/">Github</a>
+        <a target="_blank" rel="noopener noreferrer" href="https://gamechanger.finance">Website</a>
+      </h6>
+      <div class="app-footer__library">
+        <span class="app-footer__text"> HTML - Auto-generated using </span>
+        <a target="_blank" rel="noopener noreferrer"
+          href="https://www.npmjs.com/package/@gamechanger-finance/gc">Playground IDE</a>
+        <span class="app-footer__text"> - 2026</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+
+    'use strict';
+
+    /********************************************************************
+     * DEVELOPER CUSTOMIZATION SECTION
+     *
+     * Update this section to change defaults, UI fields, intent code,
+     * custom UI components, or business rules.
+     *
+     * Most integrations should only need edits here.
+     ********************************************************************/
+
+    /**
+     * Estimate the current Cardano slot number from wall-clock time.
+     *
+     * This is an estimate, not a chain-tip query.
+     * Good enough for simple off-chain calculations.
+     *
+     * @param {'mainnet'|'preprod'|'preview'} networkTag
+     * @param {number} [nowMs=Date.now()]
+     * @returns {number}
+     */
+    function estimateCurrentSlotNo(networkTag, nowMs = Date.now()) {
+      const NETWORKS = {
+        preprod: {
+          // preprod shelley genesis
+          startMs: Date.parse('2022-06-01T00:00:00Z'),
+          slotOffset: 0,
+          slotLengthMs: 1000,
+        },
+        preview: {
+          // preview shelley genesis
+          startMs: Date.parse('2022-10-25T00:00:00Z'),
+          slotOffset: 0,
+          slotLengthMs: 1000,
+        },
+        mainnet: {
+          // Shelley hard fork anchor:
+          // 2020-07-29T21:44:51Z at absolute slot 4492800
+          startMs: Date.parse('2020-07-29T21:44:51Z'),
+          slotOffset: 4492800,
+          slotLengthMs: 1000,
+        },
+      };
+
+      const cfg = NETWORKS[networkTag];
+      if (!cfg) {
+        throw new Error(`Unsupported networkTag: ${networkTag}`);
+      }
+
+      return cfg.slotOffset + Math.floor((nowMs - cfg.startMs) / cfg.slotLengthMs);
+    }
+
+    /**
+     * Convert an absolute Cardano slot number into an approximate Date.
+     *
+     * Reuse the same estimation strategy as estimateCurrentSlotNo() so ticket
+     * dates stay aligned with the current slot estimate instead of duplicating
+     * another independent anchor table here.
+     *
+     * @param {'mainnet'|'preprod'|'preview'} networkTag
+     * @param {string|number} slotNo
+     * @param {number} [nowMs=Date.now()]
+     * @returns {Date|undefined}
+     */
+    function slotNoToDate(networkTag, slotNo, nowMs = Date.now()) {
+      const nextSlotNo = Number(slotNo);
+      const currentSlotNo = estimateCurrentSlotNo(networkTag, nowMs);
+      if (!Number.isFinite(nextSlotNo) || !Number.isFinite(currentSlotNo)) return undefined;
+      return new Date(nowMs + ((nextSlotNo - currentSlotNo) * 1000));
+    }
+
+    /**
+     * Global reactive app state.
+     *
+     * This is the single source of truth for the dapp runtime.
+     *
+     * Common customization examples:
+     * - replace or add intents in app.defaultIntents
+     * - override generated fields in app.config.ui.currentFields
+     * - extend business rules inside app.config.logic(app)
+     * - add custom UI behavior inside app.config.render(app)
+     * - add custom event bindings inside app.config.bind(app)
+     */
+    const app = createApp({
+      config: {
+        id: 'gc-builder-fest-2026-challenge',
+        version: '0.0.1',
+        title: '🚀 Builder Fest 2026 Ticket Sale',
+        description: 'Review the action details below and continue in GameChanger Wallet',
+
+        /**
+         * Default runtime values before persisted overrides are applied.
+         *
+         * These values also act as the reset source later on.
+         *
+         * When app version changes, the runtime can request a manual local
+         * state migration before replacing previously persisted data.
+         */
+        defaults: {
+          options: {
+            network: "preprod",
+            encoding: "gzip",
+            walletBaseUrl: "",
+            refAddress: undefined,
+            disableNetworkRouter: false,
+            usePopup: true,
+            useDebug: false,
+            useConnect: true,
+            useIntentSelect: true,
+            useArgFields:true,
+            useThemeSelect: true,
+            useAction: true,
+            useQR: true,
+            useActionSection: true,
+            useOptions: true,
+            theme: 'dark',
+            popupFeatures: 'noopener,width=480,height=720',
+            manualResponse: ''
+          },
+          custom: {},
+        },
+          exports:{
+            "ValidatorSetDeployment": {
+              "validator": {
+                "script": {
+                  "scriptHex": "590a7f590a7c01010033333322222229800aba4aba2aba1aba0aab9faab9eaab9dab9a9bad0069bad0059bad0049bad00248888888888896600330013007375401b2300b300c00191191919800800802112cc00400600713233225980099b910070028acc004cdc78038014400600c806a26600a00a60260088068dd718060009bab300d001300f0014034297adef6c609ba5480026e1d20029b87480012222223232980098071baa001911919800800801912cc004006298103d87a80008992cc004c010006260146602c00297ae0899801801980c0012024301600140513012008980900124444b3001300800489919912cc004c028c054dd50024566002602c6ea8012264646644b3001300e3019375400b1325980099b89480000062b30013371000202b132598009808180d9baa001899192cc004c08800626464646644b30013370e900218111baa0028acc004c060c088dd518131813801c4c966002603260466ea8006264b30013019302437540031323259800981580144cc896600266ebc014c07ccc0acdd419b8000f480092f5c1159800acc004cdc42400130010079bae302c3029375406b375c604260526ea80d500245660026644b30010028a508994c004c966002604260586ea800626eb4c0b4c0c0dd5981818169baa0018a40008158c0bc0066ebcc0bcc0c00066eac00d22259800800c566002600400d13300500348002294102d44c96600266ebcc0bc00530010140008acc004cc018010dd6981818199bab3030001898019ba630340028a5040b91598009980300224001130030078a5040b88170c0c80050300ca600200300a9119818001198181ba60014bd7020022225980080144cc005300103d87a80004bd6f7b63044ca60026eb8c0b80066eacc0bc00660660069112cc004cdc8a441000038acc004cdc7a4410000389980298141981a1ba60024bd70000c4cc015300103d87a800000640c119800803c006446600e0046606c66ec0dd48029ba6004001401c81806062004817a294229422941030181098149baa30213029375401a449462646600200202244b30010018a508acc004c96600266ebcc0bcc0b0dd500081a44cdc3cc004dd5981218161baa001a44100a44100401400914a08150c0b80062946266004004605e002814902c4528204e8a50409d13375e60580226e98cc8966002942297adef6c608991919800800a5eb7bdb1808966002003133030337606ea4014dd3001a5eb7bdb1822653001375c605c0033756605e003303300248896600266e4002400e26606866ec0dd48049ba60070058acc004cdc7804801c4cc0d0cdd81ba9009374c00e003133034337606ea400cdd300119803003000a06040c0303100140bc646600200297adef6c602259800800c4cc0bccdd81ba90034c010101004bd6f7b63044ca60026eb8c0b40066eb4c0b800660640049112cc004cdc8003801c4cc0cccdd81ba90074c010101000058acc004cdc7803801c4cc0cccdd81ba90074c0101010000189981999bb037520066ea0008cc01801800502f205e1818000a05c40a46eb8c0b0c0a4dd500319b8a4881065449434b455400373064646644646e6660020033750029488100400444464b30010038991919911980500119b8a48901280059800800c4cdc52441035b5d2900006899b8a489035b5f20009800800ccdc52441025d2900006914c00402a00530070014029229800805400a0028051009206c5980099b880014803a266e0120f2010018acc004cdc4000a41000513370066e01208014001480362c81890311bac3033002375a60620026466ec0dd418188009ba73032001375400713259800800c4cdc52441027b7d00003899b8a489037b5f20003232330010010032259800800c400e264b30010018994c00402a606c003337149101023a200098008054c0dc00600a805100a181c80144ca6002015303600199b8a489023a200098008054c0dc006600e66008008004805100a181c801206e303900140d866e29220102207d0000340cc6eac00e264b3001001899b8a489025b5d00003899b8a489035b5f20009800800ccdc52441015d00003914c00401e0053004001401d229800803c00a002803900620663758007133006375a0060051323371491102682700329800800ccdc01b8d0024800666e292210127000044004444b3001337100049000440062646645300100699b800054800666e2ccdc00012cc004cdc40012402914818229037206c3371666e000056600266e2000520148a40c11481b9036002200c33706002901019b8600148080cdc70020012066375c00681b0dc5245022c200022323300100100322598009811800c4cdc52450130000038acc004cdc4000a40011337149101012d0033002002337029000000c4cc014cdc2000a402866e2ccdc019b8500148051206000340b481688888c8cc004004014896600200310058992cc004006266008606a00400d13300530350023300300300140cc606a0028190c0040048896600266e2400920008800c6600200733708004900a4cdc599b803370a004900a240c0002801902a4528204e8a50409c4446466446600400400244b3001001801c4c8cc896600266e4401c00a2b30013371e00e0051001803205c899802802981a002205c375c605a0026eb4c0b8004c0c000502e198110020018a4000b300132323259800980f800c4c966002604060546ea8c08cc0acdd5181198159baa004899b88001026899b8900102640a46eb4c0b4c0a8dd5001456600266e1d20040018a508a5140a08140c0a0dd5000981598141baa302030283754002605460566056605601f10248811a04a8b2050375a6052002604a6ea80062c8118c09cc090dd5001c59022181318119baa30260058b20428b204230240013756604800460480026046002603c6ea8c0840062c80f8c8cc004004014896600200314bd7044cc896600266ebcc090c084dd5001181218109baa30193021375400b13302300233004004001899802002000a03e302200130230014080603e60386ea80062c80d0cc02cdd6180f002919baf301f301c37540020111640651640646eb4c074c068dd5180e980d1baa0058b2030301c301c0013758603600260366036002602c6ea80162c80ba2c80a0c05c004c05cc060004c04cdd5002c566002600e0091323322598009805000c566002602c6ea801200516405d1598009805800c566002602c6ea801200516405d16405080a04c966002601260286ea800e2b30013009301437546600a6eb0c0600048cdd7980c980b1baa301930163754601c602c6ea8004cdd2a4004660306ea400d2f5c114a316404d132330010013300d37566032603460346034603400400644b30010018a518acc004cdc41bad3017301a00148002266004004603600314a080a901820263014375400660266ea8008dd7180b18099baa0058b20224044301130120013011006452689b2b200a26013ad8799f581c1ae0de15972869ee677a120a4d6073f918d8f6ed515fae4ec77b1ea95753544154455f424541434f4e5f76313230363236393832ff004c01051a003d0900004c01051a004c4b40004c01091b0000001cb06c7470004c0150d8799fd8799f581cfeff70b08356d72c571ade218c7e2933235d2cdc37259646013a27d9ffd8799fd8799fd8799f581c61d11bcf82ebd0ca2afdaf96e11ec71e43ab4e454cbe1495b42a4e86ffffffff004c010218640001",
+                  "scriptHashHex": "d7f1193b244518fce5ca5a1c7b2c4340438c8a1c4ad87b08a70eeebe",
+                  "scriptRefHex": "d818590a848203590a7f590a7c01010033333322222229800aba4aba2aba1aba0aab9faab9eaab9dab9a9bad0069bad0059bad0049bad00248888888888896600330013007375401b2300b300c00191191919800800802112cc00400600713233225980099b910070028acc004cdc78038014400600c806a26600a00a60260088068dd718060009bab300d001300f0014034297adef6c609ba5480026e1d20029b87480012222223232980098071baa001911919800800801912cc004006298103d87a80008992cc004c010006260146602c00297ae0899801801980c0012024301600140513012008980900124444b3001300800489919912cc004c028c054dd50024566002602c6ea8012264646644b3001300e3019375400b1325980099b89480000062b30013371000202b132598009808180d9baa001899192cc004c08800626464646644b30013370e900218111baa0028acc004c060c088dd518131813801c4c966002603260466ea8006264b30013019302437540031323259800981580144cc896600266ebc014c07ccc0acdd419b8000f480092f5c1159800acc004cdc42400130010079bae302c3029375406b375c604260526ea80d500245660026644b30010028a508994c004c966002604260586ea800626eb4c0b4c0c0dd5981818169baa0018a40008158c0bc0066ebcc0bcc0c00066eac00d22259800800c566002600400d13300500348002294102d44c96600266ebcc0bc00530010140008acc004cc018010dd6981818199bab3030001898019ba630340028a5040b91598009980300224001130030078a5040b88170c0c80050300ca600200300a9119818001198181ba60014bd7020022225980080144cc005300103d87a80004bd6f7b63044ca60026eb8c0b80066eacc0bc00660660069112cc004cdc8a441000038acc004cdc7a4410000389980298141981a1ba60024bd70000c4cc015300103d87a800000640c119800803c006446600e0046606c66ec0dd48029ba6004001401c81806062004817a294229422941030181098149baa30213029375401a449462646600200202244b30010018a508acc004c96600266ebcc0bcc0b0dd500081a44cdc3cc004dd5981218161baa001a44100a44100401400914a08150c0b80062946266004004605e002814902c4528204e8a50409d13375e60580226e98cc8966002942297adef6c608991919800800a5eb7bdb1808966002003133030337606ea4014dd3001a5eb7bdb1822653001375c605c0033756605e003303300248896600266e4002400e26606866ec0dd48049ba60070058acc004cdc7804801c4cc0d0cdd81ba9009374c00e003133034337606ea400cdd300119803003000a06040c0303100140bc646600200297adef6c602259800800c4cc0bccdd81ba90034c010101004bd6f7b63044ca60026eb8c0b40066eb4c0b800660640049112cc004cdc8003801c4cc0cccdd81ba90074c010101000058acc004cdc7803801c4cc0cccdd81ba90074c0101010000189981999bb037520066ea0008cc01801800502f205e1818000a05c40a46eb8c0b0c0a4dd500319b8a4881065449434b455400373064646644646e6660020033750029488100400444464b30010038991919911980500119b8a48901280059800800c4cdc52441035b5d2900006899b8a489035b5f20009800800ccdc52441025d2900006914c00402a00530070014029229800805400a0028051009206c5980099b880014803a266e0120f2010018acc004cdc4000a41000513370066e01208014001480362c81890311bac3033002375a60620026466ec0dd418188009ba73032001375400713259800800c4cdc52441027b7d00003899b8a489037b5f20003232330010010032259800800c400e264b30010018994c00402a606c003337149101023a200098008054c0dc00600a805100a181c80144ca6002015303600199b8a489023a200098008054c0dc006600e66008008004805100a181c801206e303900140d866e29220102207d0000340cc6eac00e264b3001001899b8a489025b5d00003899b8a489035b5f20009800800ccdc52441015d00003914c00401e0053004001401d229800803c00a002803900620663758007133006375a0060051323371491102682700329800800ccdc01b8d0024800666e292210127000044004444b3001337100049000440062646645300100699b800054800666e2ccdc00012cc004cdc40012402914818229037206c3371666e000056600266e2000520148a40c11481b9036002200c33706002901019b8600148080cdc70020012066375c00681b0dc5245022c200022323300100100322598009811800c4cdc52450130000038acc004cdc4000a40011337149101012d0033002002337029000000c4cc014cdc2000a402866e2ccdc019b8500148051206000340b481688888c8cc004004014896600200310058992cc004006266008606a00400d13300530350023300300300140cc606a0028190c0040048896600266e2400920008800c6600200733708004900a4cdc599b803370a004900a240c0002801902a4528204e8a50409c4446466446600400400244b3001001801c4c8cc896600266e4401c00a2b30013371e00e0051001803205c899802802981a002205c375c605a0026eb4c0b8004c0c000502e198110020018a4000b300132323259800980f800c4c966002604060546ea8c08cc0acdd5181198159baa004899b88001026899b8900102640a46eb4c0b4c0a8dd5001456600266e1d20040018a508a5140a08140c0a0dd5000981598141baa302030283754002605460566056605601f10248811a04a8b2050375a6052002604a6ea80062c8118c09cc090dd5001c59022181318119baa30260058b20428b204230240013756604800460480026046002603c6ea8c0840062c80f8c8cc004004014896600200314bd7044cc896600266ebcc090c084dd5001181218109baa30193021375400b13302300233004004001899802002000a03e302200130230014080603e60386ea80062c80d0cc02cdd6180f002919baf301f301c37540020111640651640646eb4c074c068dd5180e980d1baa0058b2030301c301c0013758603600260366036002602c6ea80162c80ba2c80a0c05c004c05cc060004c04cdd5002c566002600e0091323322598009805000c566002602c6ea801200516405d1598009805800c566002602c6ea801200516405d16405080a04c966002601260286ea800e2b30013009301437546600a6eb0c0600048cdd7980c980b1baa301930163754601c602c6ea8004cdd2a4004660306ea400d2f5c114a316404d132330010013300d37566032603460346034603400400644b30010018a518acc004cdc41bad3017301a00148002266004004603600314a080a901820263014375400660266ea8008dd7180b18099baa0058b20224044301130120013011006452689b2b200a26013ad8799f581c1ae0de15972869ee677a120a4d6073f918d8f6ed515fae4ec77b1ea95753544154455f424541434f4e5f76313230363236393832ff004c01051a003d0900004c01051a004c4b40004c01091b0000001cb06c7470004c0150d8799fd8799f581cfeff70b08356d72c571ade218c7e2933235d2cdc37259646013a27d9ffd8799fd8799fd8799f581c61d11bcf82ebd0ca2afdaf96e11ec71e43ab4e454cbe1495b42a4e86ffffffff004c010218640001",
+                  "scriptSize": 2690,
+                  "lang": "plutus_v3",
+                  "scriptParams": [
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "bytes": "1ae0de15972869ee677a120a4d6073f918d8f6ed515fae4ec77b1ea9"
+                        },
+                        {
+                          "bytes": "53544154455f424541434f4e5f76313230363236393832"
+                        }
+                      ]
+                    },
+                    {
+                      "int": 4000000
+                    },
+                    {
+                      "int": 5000000
+                    },
+                    {
+                      "int": 123218982000
+                    },
+                    {
+                      "constructor": 0,
+                      "fields": [
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "bytes": "feff70b08356d72c571ade218c7e2933235d2cdc37259646013a27d9"
+                            }
+                          ]
+                        },
+                        {
+                          "constructor": 0,
+                          "fields": [
+                            {
+                              "constructor": 0,
+                              "fields": [
+                                {
+                                  "constructor": 0,
+                                  "fields": [
+                                    {
+                                      "bytes": "61d11bcf82ebd0ca2afdaf96e11ec71e43ab4e454cbe1495b42a4e86"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "int": 100
+                    }
+                  ]
+                },
+                "address": "addr_test1zrtlzxfmy3z33l89efdpc7evgdqy8ry2r39ds7cg5u8wa0nmmk6d9tdz4cz9np3rjpaar2krctzs2rl2ttney2klk2jqwqjsdv",
+                "params": {
+                  "admin-token": {
+                    "policyId": "1ae0de15972869ee677a120a4d6073f918d8f6ed515fae4ec77b1ea9",
+                    "mintingScript": "8200581cf0ac19829a36ebc28f7eaae7ffb5b6504cf1af9cbf88f388e4221e76",
+                    "assetNameHex": "53544154455f424541434f4e5f76313230363236393832"
+                  },
+                  "blind-price": 4000000,
+                  "normal-price": 5000000,
+                  "switch-price": 123218982000,
+                  "treasury": "addr_test1qrl07u9ssdtdwtzhrt0zrrr79yejxhfvmsmjt9jxqyaz0ktp6ydulqht6r9z4ld0jms3a3c7gw45u32vhc2ftdp2f6rqvz02jw",
+                  "max-tickets": 100
+                },
+                "deployment": {
+                  "beacon": {
+                    "policyId": "1ae0de15972869ee677a120a4d6073f918d8f6ed515fae4ec77b1ea9",
+                    "mintingScript": "8200581cf0ac19829a36ebc28f7eaae7ffb5b6504cf1af9cbf88f388e4221e76",
+                    "assetNameHex": "5343524950545f424541434f4e5f76313230363236393832"
+                  },
+                  "address": "addr_test1zqdwphs4ju5xnmn80gfq5ntqw0u33k8ka4g4ltjwcaa3a2tmmk6d9tdz4cz9np3rjpaar2krctzs2rl2ttney2klk2jq5gs8kr",
+                  "utxo": {
+                    "txHash": "23cf61539db485464ce08ef449d237700d2c0e166b2a1b27b74df031391afcc2",
+                    "index": 1
+                  }
+                }
+              },
+              "initialState": {
+                "initialTicketNumber": 0,
+                "utxo": {
+                  "txHash": "23cf61539db485464ce08ef449d237700d2c0e166b2a1b27b74df031391afcc2",
+                  "index": 2
+                }
+              }
+            }
+          },
+
+        /**
+         * Field schema used to customize automatically generated controls.
+         *
+         * Useful examples:
+         * - change an inferred text field into a select field
+         * - add a custom button that reads or updates app state
+         * - add custom HTML blocks that consume app state
+         * - add a manual wallet response decoder for air-gapped QR flows
+         * - enable or disable URL, QR, and action-section controls by option flag
+         */
+        ui: {
+          showArgFields:true,
+          currentFields: {
+            options: {
+              network: { kind: 'select', options: [{ value: 'mainnet', label: 'Mainnet' }, { value: 'preprod', label: 'Preprod' }] },
+              encoding: { kind: 'select', options: [{ value: 'gzip', label: 'gzip' }, { value: 'base64url', label: 'base64url' }] },
+              theme: { kind: 'select', options: [{ value: 'dark', label: 'Dark' }, { value: 'light', label: 'Light' }] },
+              usePopup: { kind: 'checkbox' },
+              useDebug: { kind: 'checkbox' },
+              useConnect: { kind: 'checkbox' },
+              useIntentSelect: { kind: 'checkbox' },
+              useArgFields: { kind: 'checkbox' },
+              useThemeSelect: { kind: 'checkbox' },
+              useAction: { kind: 'checkbox' },
+              useQR: { kind: 'checkbox' },
+              useActionSection: { kind: 'checkbox' },
+              useOptions: { kind: 'checkbox' },
+              disableNetworkRouter: { kind: 'checkbox' },
+              popupFeatures: { kind: 'text' },
+              walletBaseUrl: { kind: 'text' },
+              refAddress: { kind: 'text' },
+              manualResponse: { kind: 'textarea', full: true, label: 'Manual wallet response' },
+              manualResponseSubmit: {
+                kind: 'button',
+                label: 'Decode wallet response',
+                action: async ({ app }) => {
+                  const responseUrl = text(app.options.manualResponse).trim();
+                  if (!responseUrl) {
+                    app.status = 'Paste a wallet URL response before decoding.';
+                    app.ui.actionStatusLevel = 'warn';
+                    return;
+                  }
+                  try {
+                    const url = new URL(responseUrl);
+                    const resultValue = url.searchParams.get('result');
+                    if (!resultValue || !window.gc?.encodings?.msg?.decoder) return false;
+                    await decodeWalletResultValue({ app, resultValue });
+                    app.options.manualResponse = '';
+                    app.status = 'Wallet response decoded successfully.';
+                    app.ui.actionStatusLevel = 'success';
+                    app.dirty = true;
+                  } catch (error) {
+                    app.status = error.message || 'Failed to decode wallet response';
+                    app.ui.actionStatusLevel = 'err';
+                  }
+                }
+              },
+              
+            },
+
+            intents: {
+              // Intent UI customization examples:
+              // payment: {
+              //   title: { kind: 'text' },
+              //   message: { kind: 'textarea', full: true },
+              //   'return-URL': { kind: 'text' },
+              //   'to-address': { kind: 'text', full: true },
+              //   'policy-id': { kind: 'text' },
+              //   'asset-name': { kind: 'text' },
+              //   decimals: { kind: 'number' },
+              //   quantity: { kind: 'number' }
+              // },
+              // stakeDelegation: {
+              //   ticker: { kind: 'text' },
+              //   'stake-pool': { kind: 'text', full: true }
+              // }
+            }
+          }
+        },
+        /**
+         * Read-only intent templates.
+         *
+         * Change only app.defaultIntents and the runtime will rebuild the live
+         * editable intents automatically.
+         */
+        defaultIntents: {
+          "buy":{
+            "label": "Buy a ticket (GCFS)",
+            "description": "Purchase a ticket to participate in the event. Works by importing the intent source code from an on-chain reusable library stored via GCFS filesystem protocol",
+            "code": {
+              "type": "script",
+              "title": "Buy a ticket",
+              "description": "Purchase a ticket to participate in the event. Works by importing the intent source code from an on-chain reusable library stored via GCFS filesystem protocol",
+              "exportAs": "TicketData",
+              "args": {},
+              "return": {
+                "mode": "last"
+              },
+              "run": {                  
+                "importedScript": {
+                  "type": "importAsScript",
+                  "args": "{get('args')}",
+                  "from": [
+                    "gcfs://b5609d8fdc910c698152072ebba6b5e572dc85098f482a9d9d5a74ae.BuilderFest@latest://src/buy.gcscript"
+                  ]
+                }                
+              }
+            }
+          },
+          // This is the actual buy intent but in-full, not refactored as an on-chain library (GCFS) + deploy site import wrapper
+          "buyRaw": {
+            "label": "Buy a ticket (Raw)",
+            "description": "Purchase a ticket to participate in the event. Pure in-URL intent, not importing any reusable code from GCFS",
+            "code": {
+              "type": "script",
+              "title": "Buy a ticket",
+              "description": "Purchase a ticket to participate in the event",
+              "exportAs": "TicketData",
+              "args": {
+                // "script-lang": "plutus_v3",
+                // "script-hash": "cbcc2b44f93e4ef6ed4a7860220cc74640b1d0c8129908a0165e5bf8",
+                // "script-size": 2674,
+                // "script-address": "addr_test1zr9uc26ylylyaahdffuxqgsvcarypvwseqffjz9qze09h7r94yyu35k68r5jxe7gam5hf3kehj0rptje8v3m4wkxjumssax94h",
+                // // "script-beacon-address": "",
+                // "script-utxo-hash": "329c6742b79511458e9a6a077c57d0c6f9d048eca9eb7d859ad7f63ee6c2f3a1",
+                // "script-utxo-index": 1,
+                // "beacon-policyId": "8453db57f15bd9e657253daeac76c020c17533aff1dcba29a78f7348",
+                // "beacon-assetNameHex": "41444d494e5f544f4b454e",
+                // "treasury-address": "addr_test1qrl07u9ssdtdwtzhrt0zrrr79yejxhfvmsmjt9jxqyaz0ktp6ydulqht6r9z4ld0jms3a3c7gw45u32vhc2ftdp2f6rqvz02jw",
+                // "ticket-cost": "5000000",
+              },
+              "return": {
+                "mode": "last"
+              },
+              "run": {
+                "myAddress": {
+                  "type": "getCurrentAddress"
+                },
+                // "scriptBeacon": {
+                //   "type": "query",
+                //   "get": {
+                //     "kind": "BeaconToken",
+                //     "asset": {
+                //       "policyId": "{get('args.beacon-policyId')}",
+                //       "assetNameHex": "{get('args.beacon-assetNameHex')}"
+                //     },
+                //     "address": "{get('args.script-address')}"
+                //   }
+                // },
+
+              "wait": {
+                "type": "await",
+                "until": {
+                     "beacon": {
+                        "address": "{get('args.script-address')}",
+                        "kind": "balance",
+                        "is": "equal",
+                        "asset": {
+                            "policyId": "{get('args.beacon-policyId')}",
+                            "assetNameHex": "{get('args.beacon-assetNameHex')}",
+                            "quantity": "1"
+                        }
+                    },
+                  }
+                },
+                "beacon": {
+                  "type": "query",
+                  "get": {
+                    "kind": "BeaconToken",
+                    "asset": {
+                      "policyId": "{get('args.beacon-policyId')}",
+                      "assetNameHex": "{get('args.beacon-assetNameHex')}"
+                    },
+                    "address": "{get('args.script-address')}"
+                  }
+                },
+                "ticketNumber": {
+                  "type": "macro",
+                  "run": {
+                    "current": "{get('cache.beacon.datum.data.obj.fields.0.int')}",
+                    "next": "{jsonToObj( addBigNum( get('cache.beacon.datum.data.obj.fields.0.int'), 1 ) )}"
+                  }
+                },
+                "currentState": {
+                  "type": "plutusData",
+                  "data": {
+                    "fromJSON": {
+                      "schema": 1,
+                      "obj": {
+                        "constructor": 0,
+                        "fields": [
+                          {
+                            "int": "{get('cache.ticketNumber.current')}"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "nextState": {
+                  "type": "plutusData",
+                  "data": {
+                    "fromJSON": {
+                      "schema": 1,
+                      "obj": {
+                        "constructor": 0,
+                        "fields": [
+                          {
+                            "int": "{get('cache.ticketNumber.next')}"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "ticketToken": {
+                  "type": "macro",
+                  "run": {
+                    "policyId": "{get('args.script-hash')}",
+                    "assetName": "{replaceAll( 'TICKET%', '%', get('cache.ticketNumber.current') )}"
+                  }
+                },
+                "currentSlotNumber": {
+                  "type": "getCurrentSlot"
+                },
+                "build": {
+                  "type": "buildTx",
+                  "title": "{replaceAll( '🚀 BuilderFest 2026 Ticket #%', '%', get('cache.ticketNumber.current') )}",
+                  "tx": {
+                    "inputs": [{
+                      "txHash": "{get('cache.beacon.txHash')}",
+                      "index": "{get('cache.beacon.index')}"
+                    }],
+                    "mints": [
+                      {
+                        "policyId": "{get('cache.ticketToken.policyId')}",
+                        "assets": [
+                          {
+                            "assetName": "{get('cache.ticketToken.assetName')}",
+                            "quantity": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "outputs": {
+                      "withPayment": {
+                        "address": "{get('args.treasury-address')}",
+                        "assets": [
+                          {
+                            "policyId": "ada",
+                            "assetName": "ada",
+                            "quantity": "{addBigNum(get('args.ticket-cost'),0)}"
+                          }
+                        ]
+                      },
+                      "withTicket": {
+                        "address": "{get('cache.myAddress')}",
+                        "assets": [
+                          {
+                            "policyId": "{get('cache.ticketToken.policyId')}",
+                            "assetName": "{get('cache.ticketToken.assetName')}",
+                            "quantity": "1"
+                          }
+                        ]
+                      },
+                      "withAdminTokenAndNextState": {
+                        "address": "{get('args.script-address')}",
+                        "assets": [
+                          {
+                            "policyId": "{get('args.beacon-policyId')}",
+                            "assetNameHex": "{get('args.beacon-assetNameHex')}",
+                            "quantity": "1"
+                          }
+                        ],
+                        "datum": {
+                          "datumHex": "{get('cache.nextState.dataHex')}"
+                        },
+                        "idPattern": "outputWithTheAdminTokenAndDatum"
+                      }
+                    },
+                    "witnesses": {
+                      "plutus": {
+                        "scripts": [
+                          {
+                            "scriptHashHex": "{get('args.script-hash')}",
+                            "lang": "{get('args.script-lang')}",
+                            "scriptSize": "{get('args.script-size')}",
+                            "input": {
+                              "txHash": "{get('args.script-utxo-hash')}",
+                              "index": "{get('args.script-utxo-index')}"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "ttl": {
+                      "from": "{get('cache.currentSlotNumber')}",
+                      "until": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                    },
+                    "auxiliaryData": {
+                      "674": {
+                        "msg": [
+                          "🚀 Cardano BuilderFest 2026 Registration:\n",
+                          "{replaceAll( '- Ticket: %', '%', get('cache.ticketNumber.current') )}",
+                          "\n",
+                          "{replaceAll( '- Cost: % lovelaces', '%', get('args.ticket-cost') )}",
+                          "\n\n",
+                          "✨ Created with GCScript DSL:\n",
+                          "- https://github.com/GameChangerFinance", "/builderfest-2026-ticket\n",
+                          "\n",
+                          "- Website: https://gamechanger.finance\n",
+                          "\n"
+                        ]
+                      }
+                    },
+                    "options": {
+                      "collateralCoinSelection": "LASLAD"
+                    }
+                  }
+                },
+                "sign": {
+                  "type": "signTxs",
+                  "detailedPermissions": false,
+                  "txs": [
+                    "{get('cache.build.txHex')}"
+                  ]
+                },
+                "submit": {
+                  "type": "submitTxs",
+                  "mode": "noWait",
+                  "txs": "{get('cache.sign')}"
+                },
+
+                "finally": {
+                  "type": "macro",
+                  "run": {
+                    "{join('.',get('cache.ticketToken.policyId'),get('cache.ticketToken.assetName'))}":{
+                      "txHash": "{get('cache.build.txHash')}",
+                      "address": "{get('cache.myAddress')}",
+                      "ticketNumber": "{get('cache.ticketNumber.current')}",
+                      "ticketToken": "{get('cache.ticketToken')}",
+                      "ticketCost": "{get('args.ticket-cost')}",
+                      "ttl": {
+                        "from": "{get('cache.currentSlotNumber')}",
+                        "to": "{addBigNum(get('cache.currentSlotNumber'),'600')}"
+                      },
+                      "newState": {
+                        "ticketNumber": "{get('cache.ticketNumber.next')}",
+                        "utxo": {
+                          "txHash": "{get('cache.build.txHash')}",
+                          "index": "{get('cache.build.indexMap.output.outputWithTheAdminTokenAndDatum')}"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "buyDeploy":{
+            "label": "Deploy library on-chain using GCFS",
+            "description": "Adapts the buy intent to became a reusable library and deploys it on-chain with GCFS Filesystem Protocol. Adapt the source code of the buy intent later to point to you self sovereign library (GCFS URI)",                  
+            "code":{
+                "title": "Deploy buy intent as library on GCFS",
+                "description": "Adapts the intent to became a reusable library and deploys it on-chain with GCFS Filesystem Protocol",
+                "type": "script",
+                "args": {
+                  "asset-name": "BuilderFest",
+                  "file-path": "//src/buy.gcscript",
+                  "file-hex": ""
+                },
+                "run": {
+                  "buildTxs": {
+                    "type": "buildFsTxs",
+                    "assetName": "{get('args.asset-name')}",
+                    "replicas": "1",
+                    "layers": [
+                      {
+                        "{get('args.file-path')}": {
+                          "kind": "file",
+                          "fileHex": "{get('args.file-hex')}"
+                        }
+                      }
+                    ]
+                  },
+                  "signTxs": {
+                    "detailedPermissions": false,
+                    "type": "signTxs",
+                    "namePattern": "GCFS_Signed_{key}",
+                    "txs": "{get('cache.buildTxs.txList')}"
+                  },
+                  "submitTxs": {
+                    "type": "submitTxs",
+                    "mode": "parallel",
+                    "namePattern": "GCFS_Submitted{key}",
+                    "txs": "{get('cache.signTxs')}"
+                  },
+                  "finally": {
+                    "type": "script",
+                    "exportAs": "buildFs",
+                    "run": {
+                      "txs": {
+                        "type": "macro",
+                        "run": "{get('cache.submitTxs')}"
+                      }
+                    }
+                  }
+                }
+              }
+          } ,          
+          "deploy": {
+            "label": "Deploy validator",
+            "description": "Customize the form to parameterize and deploy your own version of the ticket selling smart contract, fully from your device. Continue in wallet",
+            "code": {
+              "type": "script",
+              "title": "Deploy your own BuilderFest 2026 Ticket Validator Set",
+              "description": "Customize the form to parameterize and deploy your own version of the ticket selling smart contract, fully from your device. Continue in wallet",
+              "exportAs": "ValidatorSetDeployment",
+              "return": {
+                "mode": "last"
+              },
+              "args": {
+                "script-lang": "plutus_v3",
+                "script-template": "590a6f590a6c01010033333322222229800aba4aba2aba1aba0aab9faab9eaab9dab9a9bad0069bad0059bad0049bad00248888888888896600330013007375401b2300b300c00191191919800800802112cc00400600713233225980099b910070028acc004cdc78038014400600c806a26600a00a60260088068dd718060009bab300d001300f0014034297adef6c609ba5480026e1d20029b87480012222223232980098071baa001911919800800801912cc004006298103d87a80008992cc004c010006260146602c00297ae0899801801980c0012024301600140513012008980900124444b3001300800489919912cc004c028c054dd50024566002602c6ea8012264646644b3001300e3019375400b1325980099b89480000062b30013371000202b132598009808180d9baa001899192cc004c08800626464646644b30013370e900218111baa0028acc004c060c088dd518131813801c4c966002603260466ea8006264b30013019302437540031323259800981580144cc896600266ebc014c07ccc0acdd419b8000f480092f5c1159800acc004cdc42400130010079bae302c3029375406b375c604260526ea80d500245660026644b30010028a508994c004c966002604260586ea800626eb4c0b4c0c0dd5981818169baa0018a40008158c0bc0066ebcc0bcc0c00066eac00d22259800800c566002600400d13300500348002294102d44c96600266ebcc0bc00530010140008acc004cc018010dd6981818199bab3030001898019ba630340028a5040b91598009980300224001130030078a5040b88170c0c80050300ca600200300a9119818001198181ba60014bd7020022225980080144cc005300103d87a80004bd6f7b63044ca60026eb8c0b80066eacc0bc00660660069112cc004cdc8a441000038acc004cdc7a4410000389980298141981a1ba60024bd70000c4cc015300103d87a800000640c119800803c006446600e0046606c66ec0dd48029ba6004001401c81806062004817a294229422941030181098149baa30213029375401a449462646600200202244b30010018a508acc004c96600266ebcc0bcc0b0dd500081a44cdc3cc004dd5981218161baa001a44100a44100401400914a08150c0b80062946266004004605e002814902c4528204e8a50409d13375e60580226e98cc8966002942297adef6c608991919800800a5eb7bdb1808966002003133030337606ea4014dd3001a5eb7bdb1822653001375c605c0033756605e003303300248896600266e4002400e26606866ec0dd48049ba60070058acc004cdc7804801c4cc0d0cdd81ba9009374c00e003133034337606ea400cdd300119803003000a06040c0303100140bc646600200297adef6c602259800800c4cc0bccdd81ba90034c010101004bd6f7b63044ca60026eb8c0b40066eb4c0b800660640049112cc004cdc8003801c4cc0cccdd81ba90074c010101000058acc004cdc7803801c4cc0cccdd81ba90074c0101010000189981999bb037520066ea0008cc01801800502f205e1818000a05c40a46eb8c0b0c0a4dd500319b8a4881065449434b455400373064646644646e6660020033750029488100400444464b30010038991919911980500119b8a48901280059800800c4cdc52441035b5d2900006899b8a489035b5f20009800800ccdc52441025d2900006914c00402a00530070014029229800805400a0028051009206c5980099b880014803a266e0120f2010018acc004cdc4000a41000513370066e01208014001480362c81890311bac3033002375a60620026466ec0dd418188009ba73032001375400713259800800c4cdc52441027b7d00003899b8a489037b5f20003232330010010032259800800c400e264b30010018994c00402a606c003337149101023a200098008054c0dc00600a805100a181c80144ca6002015303600199b8a489023a200098008054c0dc006600e66008008004805100a181c801206e303900140d866e29220102207d0000340cc6eac00e264b3001001899b8a489025b5d00003899b8a489035b5f20009800800ccdc52441015d00003914c00401e0053004001401d229800803c00a002803900620663758007133006375a0060051323371491102682700329800800ccdc01b8d0024800666e292210127000044004444b3001337100049000440062646645300100699b800054800666e2ccdc00012cc004cdc40012402914818229037206c3371666e000056600266e2000520148a40c11481b9036002200c33706002901019b8600148080cdc70020012066375c00681b0dc5245022c200022323300100100322598009811800c4cdc52450130000038acc004cdc4000a40011337149101012d0033002002337029000000c4cc014cdc2000a402866e2ccdc019b8500148051206000340b481688888c8cc004004014896600200310058992cc004006266008606a00400d13300530350023300300300140cc606a0028190c0040048896600266e2400920008800c6600200733708004900a4cdc599b803370a004900a240c0002801902a4528204e8a50409c4446466446600400400244b3001001801c4c8cc896600266e4401c00a2b30013371e00e0051001803205c899802802981a002205c375c605a0026eb4c0b8004c0c000502e198110020018a4000b300132323259800980f800c4c966002604060546ea8c08cc0acdd5181198159baa004899b88001026899b8900102640a46eb4c0b4c0a8dd5001456600266e1d20040018a508a5140a08140c0a0dd5000981598141baa302030283754002605460566056605601f10248811a04a8b2050375a6052002604a6ea80062c8118c09cc090dd5001c59022181318119baa30260058b20428b204230240013756604800460480026046002603c6ea8c0840062c80f8c8cc004004014896600200314bd7044cc896600266ebcc090c084dd5001181218109baa30193021375400b13302300233004004001899802002000a03e302200130230014080603e60386ea80062c80d0cc02cdd6180f002919baf301f301c37540020111640651640646eb4c074c068dd5180e980d1baa0058b2030301c301c0013758603600260366036002602c6ea80162c80ba2c80a0c05c004c05cc060004c04cdd5002c566002600e0091323322598009805000c566002602c6ea801200516405d1598009805800c566002602c6ea801200516405d16405080a04c966002601260286ea800e2b30013009301437546600a6eb0c0600048cdd7980c980b1baa301930163754601c602c6ea8004cdd2a4004660306ea400d2f5c114a316404d132330010013300d37566032603460346034603400400644b30010018a518acc004cdc41bad3017301a00148002266004004603600314a080a901820263014375400660266ea8008dd7180b18099baa0058b20224044301130120013011006452689b2b200a26012ed8799f581cadadadadadadadadadadadadadadadadadadadadadadadadadadadad4b41444d494e5f544f4b454eff004c01051a003d0900004c01051a004c4b40004c01051a06cf87c0004c0150d8799fd8799f581cfeff70b08356d72c571ade218c7e2933235d2cdc37259646013a27d9ffd8799fd8799fd8799f581c61d11bcf82ebd0ca2afdaf96e11ec71e43ab4e454cbe1495b42a4e86ffffffff004c010218640001",
+
+                "initial-ticket-number": 0,
+                "admin-token-assetName": "STATE_BEACON",
+                "script-beacon-assetName": "SCRIPT_BEACON",
+
+                "blind-price": 4000000,
+                "normal-price": 5000000,
+                "days-to-price-switch": 30,
+                "treasury-address": "addr_test1qrl07u9ssdtdwtzhrt0zrrr79yejxhfvmsmjt9jxqyaz0ktp6ydulqht6r9z4ld0jms3a3c7gw45u32vhc2ftdp2f6rqvz02jw",
+                "max-tickets": 100
+              },
+              "run": {
+                "initialState": {
+                  "type": "plutusData",
+                  "data": {
+                    "fromJSON": {
+                      "schema": 1,
+                      "obj": {
+                        "constructor": 0,
+                        "fields": [
+                          {
+                            "int": "{get('args.initial-ticket-number')}"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "mySpendCredential": {
+                  "type": "getSpendingPublicKey"
+                },
+                "myStakeCredential": {
+                  "type": "getStakingPublicKey"
+                },
+                "currentSlotNumber": {
+                  "type": "getCurrentSlot"
+                },
+                "switchPriceMs": {
+                  "type": "macro",
+                  "run": "{jsonToObj(addBigNum( mulBigNum(get('cache.currentSlotNumber'),'1000'), mulBigNum(get('args.days-to-price-switch'),'24','60','60','1000') ))}"
+                },
+                "myPolicy": {
+                  "type": "nativeScript",
+                  "script": {
+                    "pubKeyHashHex": "{get('cache.mySpendCredential.pubKeyHashHex')}"
+                  }
+                },
+                "adminToken": {
+                  "type": "macro",
+                  "run": {
+                    "policyId": "{get('cache.myPolicy.scriptHashHex')}",
+                    "mintingScript": "{get('cache.myPolicy.scriptHex')}",
+                    // "assetNameHex": "{strToHex(get('args.admin-token-assetName'))}"
+                    "assetNameHex": "{strToHex(join('_v',get('args.admin-token-assetName'),get('cache.currentSlotNumber')))}"
+                  }
+                },
+                "scriptBeacon": {
+                  "type": "macro",
+                  "run": {
+                    "policyId": "{get('cache.myPolicy.scriptHashHex')}",
+                    "mintingScript": "{get('cache.myPolicy.scriptHex')}",
+                    // "assetNameHex": "{strToHex(get('args.script-beacon-assetName'))}"
+                    "assetNameHex": "{strToHex(join('_v',get('args.script-beacon-assetName'),get('cache.currentSlotNumber')))}"
+                  }
+                },
+                "script": {
+                  "type": "plutusScript",
+                  "script": {
+                    "scriptHex": "{get('args.script-template')}",
+                    "lang": "{get('args.script-lang')}",
+                    "scriptParams": [
+                      {
+                        "constructor": 0,
+                        "fields": [
+                          {
+                            "bytes": "{get('cache.adminToken.policyId')}"
+                          },
+                          {
+                            "bytes": "{get('cache.adminToken.assetNameHex')}"
+                          }
+                        ]
+                      },
+                      {
+                        "int": "{get('args.blind-price')}"
+                      },
+                      {
+                        "int": "{get('args.normal-price')}"
+                      },
+                      {
+                        "int": "{get('cache.switchPriceMs')}"
+                      },
+                      "{addressBech32ToPlutusDataObj(get('args.treasury-address'))}",
+                      {
+                        "int": "{get('args.max-tickets')}"
+                      }
+                    ]
+                  }
+                },
+                "scriptAddress": {
+                  "type": "buildAddress",
+                  "name": "ContractAddress",
+                  "addr": {
+                    "spendScriptHashHex": "{get('cache.script.scriptHashHex')}",
+                    "stakePubKeyHashHex": "{get('cache.myStakeCredential.pubKeyHashHex')}"
+                  }
+                },
+                "scriptReferenceAddress": {
+                  "type": "buildAddress",
+                  "name": "ContractAddress",
+                  "addr": {
+                    "spendScriptHashHex": "{get('cache.myPolicy.scriptHashHex')}",
+                    "stakePubKeyHashHex": "{get('cache.myStakeCredential.pubKeyHashHex')}"
+                  }
+                },
+                "build": {
+                  "type": "buildTx",
+                  "title": "{replaceAll( '⚙️ Ticket Sale Contract Deployment v%', '%', get('cache.currentSlotNumber') )}",
+                  "tx": {
+                    "mints": [
+                      {
+                        "policyId": "{get('cache.adminToken.policyId')}",
+                        "assets": [
+                          {
+                            "assetNameHex": "{get('cache.adminToken.assetNameHex')}",
+                            "quantity": "1"
+                          }
+                        ]
+                      },
+                      {
+                        "policyId": "{get('cache.scriptBeacon.policyId')}",
+                        "assets": [
+                          {
+                            "assetNameHex": "{get('cache.scriptBeacon.assetNameHex')}",
+                            "quantity": "1"
+                          }
+                        ]
+                      }
+                    ],
+                    "outputs": {
+                      "withScript": {
+                        "address": "{get('cache.scriptReferenceAddress')}",
+                        "assets": [
+                          {
+                            "policyId": "{get('cache.scriptBeacon.policyId')}",
+                            "assetNameHex": "{get('cache.scriptBeacon.assetNameHex')}",
+                            "quantity": "1"
+                          }
+                        ],
+                        "script": {
+                          "scriptRefHex": "{get('cache.script.scriptRefHex')}"
+                        },
+                        "idPattern": "outputWithTheValidator"
+                      },
+                      "withAdminTokenAndInitialState": {
+                        "address": "{get('cache.scriptAddress')}",
+                        "assets": [
+                          {
+                            "policyId": "{get('cache.adminToken.policyId')}",
+                            "assetNameHex": "{get('cache.adminToken.assetNameHex')}",
+                            "quantity": "1"
+                          }
+                        ],
+                        "datum": {
+                          "datumHex": "{get('cache.initialState.dataHex')}"
+                        },
+                        "idPattern": "outputWithTheAdminTokenAndDatum"
+                      }
+                    },
+                    "auxiliaryData": {
+                      "674": {
+                        "msg": [
+                          "⚙️ Ticket Sale Contract Deployment:\n",
+                          "\n",
+                          "{replaceAll( '- Version: v%', '%', get('cache.currentSlotNumber') )}",
+                          "\n",
+                          "{replaceAll( 'From slotTimeMs % ..', '%', mulBigNum(get('cache.currentSlotNumber'),'1000') )}",
+                          "\n",
+                          "{replaceAll( '- Blind Price (lovelaces): %', '%', get('args.blind-price') )}",
+                          "\n",
+                          "{replaceAll( 'After slotTimeMs % ..', '%', get('cache.switchPriceMs') )}",
+                          "\n",
+                          "{replaceAll( '- Normal Price (lovelaces): %', '%', get('args.normal-price') )}",
+                          "\n\n",
+                          "✨ Created with GCScript DSL:\n",
+                          "- https://github.com/GameChangerFinance", "/builderfest-2026-ticket\n",
+                          "\n",
+                          "- Website: https://gamechanger.finance\n",
+                          "\n"
+                        ]
+                      }
+                    },
+                    "witnesses": {
+                      "nativeScripts": {
+                        "adminTokenPolicy": "{get('cache.adminToken.mintingScript')}"
+                      }
+                    }
+                  }
+                },
+                "sign": {
+                  "type": "signTxs",
+                  "detailedPermissions": false,
+                  "txs": [
+                    "{get('cache.build.txHex')}"
+                  ]
+                },
+                "submit": {
+                  "type": "submitTxs",
+                  "mode": "noWait",
+                  "txs": "{get('cache.sign')}"
+                },
+                "finally": {
+                  "type": "macro",
+                  "run": {
+                    "validator": {
+                      "script": "{get('cache.script')}",
+                      "address": "{get('cache.scriptAddress')}",
+                      "params": {
+                        "admin-token" : "{get('cache.adminToken')}",
+                        "blind-price" : "{get('args.blind-price')}",
+                        "normal-price": "{get('args.normal-price')}",
+                        "switch-price": "{get('cache.switchPriceMs')}",
+                        "treasury"    : "{get('args.treasury-address')}",
+                        "max-tickets" : "{get('args.max-tickets')}"
+                      },
+                      "deployment": {
+                        "beacon": "{get('cache.scriptBeacon')}",
+                        "address": "{get('cache.scriptReferenceAddress')}",
+                        "utxo": {
+                          "txHash": "{get('cache.build.txHash')}",
+                          "index": "{get('cache.build.indexMap.output.outputWithTheValidator')}"
+                        }
+                      }
+                    },
+                    "initialState": {
+                      "initialTicketNumber": "{get('args.initial-ticket-number')}",
+                      "utxo": {
+                        "txHash": "{get('cache.build.txHash')}",
+                        "index": "{get('cache.build.indexMap.output.outputWithTheAdminTokenAndDatum')}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+          },
+          // Uncomment the connect intent below to enable the most common wallet connection UX out of the box.
+          // Intent-based Cardano dapps do not require a mandatory wallet connection to work.
+          "connect": {
+            "label": "Connect wallet",
+            "description": "Share public wallet information with this dapp. Many intent-based Cardano integrations do not need to share your address, balance nor UTXOs to dapps in order to work. The connect feature is non mandatory on this app.",
+            "code": {
+              "type": "script",
+              "title": "Connect with this dapp?",
+              "description": "About to share public wallet information with the dapp.",
+              "exportAs": "connect",
+              "run": {
+                "name": {
+                  "type": "getName"
+                },
+                "address": {
+                  "type": "getCurrentAddress"
+                },
+                "addressInfo": {
+                  "type": "macro",
+                  "run": "{getAddressInfo(get('cache.address'))}"
+                }
+              }
+            }
+          },
+
+
+        },
+
+        /**
+         * Example connected wallet normalizer.
+         *
+         * This helper is intentionally placed in the customization section
+         * because wallet identity shape can vary between flows.
+         *
+         * Return undefined when no connected wallet should be shown.
+         */
+        normalizeConnectedWallet({ decoded, value }) {
+          const wallet = value || {};
+          const resultWallet = decoded?.wallet || decoded?.result?.wallet || decoded?.data?.wallet || {};
+          const connect = wallet?.connect || wallet || {};
+          const next = {
+            name: text(connect.name || resultWallet.name || decoded?.walletName),
+            type: text(connect.type || connect.walletType || resultWallet.type || decoded?.walletType || decoded?.type),
+            brand: text(connect.brand || connect.walletBrand || connect.subType || resultWallet.brand || resultWallet.subType || decoded?.walletBrand || decoded?.subType || decoded?.brand),
+            address: text(connect.address || resultWallet.address || decoded?.address)
+          };
+          return next.name || next.type || next.brand || next.address ? next : undefined;
+        },
+
+        patchBuyIntentWithCurrentDeployData({app}){
+            const deployExport = app?.exports?.ValidatorSetDeployment;
+            if (deployExport){
+              try{
+                app.defaultIntents.buy.code.args = {
+                  "script-lang"                : app?.exports?.ValidatorSetDeployment.validator.script.lang,
+                  "script-hash"                : app?.exports?.ValidatorSetDeployment.validator.script.scriptHashHex,
+                  "script-size"                : app?.exports?.ValidatorSetDeployment.validator.script.scriptSize,
+                  "script-address"             : app?.exports?.ValidatorSetDeployment.validator.address,
+                  // "script-beacon-policyId"     : app?.exports?.ValidatorSetDeployment.validator.deployment.beacon.policyId,
+                  // "script-beacon-assetNameHex" : app?.exports?.ValidatorSetDeployment.validator.deployment.beacon.assetNameHex,
+                  // "script-beacon-address"      : app?.exports?.ValidatorSetDeployment.validator.deployment.address,
+                  "script-utxo-hash"           : app?.exports?.ValidatorSetDeployment.validator.deployment.utxo.txHash,
+                  "script-utxo-index"          : app?.exports?.ValidatorSetDeployment.validator.deployment.utxo.index,
+                  "beacon-policyId"            : app?.exports?.ValidatorSetDeployment.validator.params["admin-token"].policyId,
+                  "beacon-assetNameHex"        : app?.exports?.ValidatorSetDeployment.validator.params["admin-token"].assetNameHex,
+                  "treasury-address"           : app?.exports?.ValidatorSetDeployment.validator.params["treasury"],
+                }
+
+                const currentSlotNoMs = estimateCurrentSlotNo(app.options?.network);
+                const switchPriceMs   = app?.exports?.ValidatorSetDeployment?.validator?.params["switch-price"]
+                const ttlMs           = 600*1000
+                // TODO: fix the switch-price argument/validator bug and start using blind price here!
+                // Notes: once this bug gets fixed this is a clear example of separation of concerns: business logic (conditionals and iterations in app) vs Cardano integration (deterministic code in the non-turing complete GCScript DSL) 
+                /*if(((currentSlotNoMs+ttlMs)<switchPriceMs))
+                  app.defaultIntents.buy.code.args['ticket-cost']= app?.exports?.ValidatorSetDeployment.validator.params["blind-price"]
+                else*/
+                  app.defaultIntents.buy.code.args['ticket-cost']= app?.exports?.ValidatorSetDeployment.validator.params["normal-price"]
+                
+
+                app.intents.buy.code.args       = app.defaultIntents.buy.code.args
+
+                
+                app.status               =`Ticket validator registered: ${app.defaultIntents.buy?.code?.args["beacon-assetNameHex"]}`
+                app.ui.actionStatusLevel = 'success';
+              }catch(err){
+                app.status               =`Ticket validator failed to registered: ${err}`
+                app.ui.actionStatusLevel = 'err';
+                console.error(app.ui.actionStatus);
+              }
+              
+            }
+
+          },
+                 
+          getTicketList({app,dontfilterByOwn}){
+            const eventPolicyId=app?.exports?.ValidatorSetDeployment?.validator?.script?.scriptHashHex
+            const ticketMap = app?.exports?.TicketData
+              ? app?.exports?.TicketData['0'] 
+              : {};
+            const ticketList = Object.values(ticketMap)
+              .filter((ticket) => 
+                isObject(ticket) && 
+                text(ticket?.txHash) && 
+                Number.isFinite(Number(ticket?.ticketNumber)) && // && d7f1193b244518fce5ca5a1c7b2c4340438c8a1c4ad87b08a70eeebe
+                ticket?.ticketToken?.policyId===eventPolicyId &&
+                ticket?.ticketToken?.assetName===`TICKET${ticket?.ticketNumber}`)
+              .sort((a, b) => Number(a?.ticketNumber || 0) - Number(b?.ticketNumber || 0));
+            const myAddress = app.custom?.connectedWallet?.address;
+            if(!dontfilterByOwn && myAddress)
+              return ticketList.filter(ticket => ticket?.address === myAddress)
+            else 
+              return ticketList;
+          },
+
+        /**
+         * Example transient wallet result handler.
+         *
+         * This hook runs exactly when a wallet result is captured from the URL
+         * or manually decoded from the options panel.
+         *
+         * Any intent result carrying a `connect` export can hydrate the
+         * connected wallet widget, regardless of which intent produced it.
+         * This keeps widget hydration based on transient results instead of
+         * using merged exports as a permanent source of truth.
+         */
+        onResultCaptured({ app, result }) {
+          const connectExport = result?.exports?.connect;
+          if (connectExport){ 
+            app.custom.connectedWallet = app.config.normalizeConnectedWallet({
+              decoded: result?.decoded,
+              value: connectExport
+            });
+            // app.dirty = true;
+          }
+          const ticketMap = app?.exports?.TicketData
+            ? app?.exports?.TicketData['0'] 
+            : {};          
+          const selectedTicket = Object.values(ticketMap || {})
+            .find((ticket) => isObject(ticket) && text(ticket?.txHash) && Number.isFinite(Number(ticket?.ticketNumber)));
+          if (selectedTicket?.txHash) {
+            app.ui.selectedTicketTxHash = selectedTicket.txHash;
+            app.ui.focusedTicketTxHash = '';
+          }
+
+          app.config.patchBuyIntentWithCurrentDeployData({app});
+
+        },
+
+        /**
+         * Example intent resolver.
+         *
+         * This is where example intent-specific transformations live.
+         * Replace, remove, or extend this function to fit the current set of
+         * intents. The runtime will stay generic.
+         */
+        getIntentCode({ app, intentKey, code }) {
+          const next = clone(code);
+          const args = next.args || {};
+
+          if (next.exportAs || next.return) next.returnURLPattern = buildReturnUrl();
+
+          if (intentKey === 'connect' && app.custom?.connectedWallet?.name) {
+            next.title = `Reconnect ${app.custom.connectedWallet.name}?`;
+          }
+
+          if(intentKey === 'buy'){
+            if(app?.exports?.ValidatorSetDeployment){
+              app.config.patchBuyIntentWithCurrentDeployData({app});
+
+              let priceLabel='unknown'
+              if(next.args['ticket-cost']===app?.exports?.ValidatorSetDeployment.validator.params["blind-price"])
+                priceLabel='Blind Price';
+              else
+              if(next.args['ticket-cost']===app?.exports?.ValidatorSetDeployment.validator.params["normal-price"])
+                priceLabel='Normal Price';
+              app.status               =`About to buy using ${priceLabel}: ${next.args['ticket-cost']}`
+              app.ui.actionStatusLevel = 'success';
+            } else {
+                app.status               =`You must deploy or import an already deployed contract in order to buy a ticket!`
+                app.ui.actionStatusLevel = 'warn';
+            }
+          }
+
+
+          if(intentKey==='buyDeploy'){
+
+            const buyLib={
+                ...app.intents.buy.code,
+                "args":"{get('args')}"
+            };
+            const buyLibHex = window.gc.utils.Buffer.from(JSON.stringify(buyLib),'utf8').toString('hex')
+            console.log({buyLibHex})
+            //app.defaultIntents.buyDeploy.args['file-hex'] = buyLibHex
+            app.intents.buyDeploy.code.args['file-hex'] = buyLibHex            
+          }
+
+          // Examples:
+          // if (intentKey === 'payment') {
+          //   const connectedName = app.exports?.connect?.name || app.custom.connectedWallet?.name || '';
+          //   if (app.options.network === 'preprod' && args['return-URL'] === 'https://cardanoscan.io/transaction/{txHash}') {
+          //     args['return-URL'] = 'https://preprod.cardanoscan.io/transaction/{txHash}';
+          //   }
+          //   if (connectedName && !text(args.message).includes(connectedName)) {
+          //     args.message = `${text(args.message)}\nRequested by ${connectedName}`.trim();
+          //   }
+          //   next.title = `Payment request: ${args.title || 'Untitled'}`;
+          //   if (next.run?.build) next.run.build.title = `✅ ${args.title || 'Payment request'}`;
+          // }
+
+          // if (intentKey === 'stakeDelegation') {
+          //   next.title = `Delegating to ${args.ticker || 'a stake pool'}`;
+          //   if (next.run?.build) next.run.build.title = `✅ Delegate to ${args.ticker || 'a stake pool'}`;
+          // }
+
+          return next;
+        },
+
+        /**
+         * Custom business rules.
+         *
+         * This is the main place to derive UI state, summaries, custom state,
+         * and use-case-specific behavior from the current runtime values.
+         */
+        logic(app) {
+          const key = app.ui.currentIntentKey;
+          const intent = app.intents[key] || {};
+          const code = intent.code || {};
+          const currentResult = app.result;
+          const ticketList = app.config.getTicketList({ app });
+
+          /* Consume transient wallet return data only once. */
+          if (currentResult) {
+            app.result = undefined;
+          }
+
+          app.options.useArgFields=key!=='buy';
+          app.options.useAction   =key!=='buy' || !!app?.exports?.ValidatorSetDeployment;
+
+          app.ui.ticketList = ticketList;
+          app.ui.showTicketList = !!ticketList.length;
+
+          app.ui.showArgFields = app.options.useArgFields;
+          app.ui.showDebug = !!app.options.useDebug;
+          app.ui.showIntentSelect = !!app.options.useIntentSelect && Object.keys(app.defaultIntents).length > 1;
+          app.ui.showThemeSelect = !!app.options.useThemeSelect;
+          app.ui.showAction = !!app.options.useAction;
+          app.ui.showQR = !!app.options.useQR;
+          app.ui.showOptionsToggle = !!app.options.useOptions;
+          app.ui.actionSectionDisabled = !app.options.useActionSection;
+          app.ui.hasArgs = !!Object.keys(code.args || {}).length;
+
+          app.ui.currentFields = inferFieldsFromJSON({
+            json: code.args || {},
+            fieldConfig: app.config.ui.currentFields?.intents?.[key] || {},
+            pathPrefix: ['intents', key, 'code', 'args']
+          });
+
+          app.ui.optionFields = inferFieldsFromJSON({
+            json: app.options,
+            fieldConfig: app.config.ui.currentFields?.options || {},
+            pathPrefix: ['options']
+          });
+
+          /**
+           * Example field validation rules.
+           *
+           * Use this area to validate current intent arguments and expose
+           * warnings or errors to the user. Blocking validations disable the
+           * main action button and the copy-link button.
+           */
+          const validations = [];
+          // if (key === 'payment') {
+          //   const quantity = Number(code.args?.quantity || 0);
+          //   const address = text(code.args?.['to-address']);
+          //   const returnUrl = text(code.args?.['return-URL']);
+          //   if (!(quantity > 0)) validations.push({ level: 'err', blocking: true, message: 'Quantity must be greater than 0.' });
+          //   if (address) {
+          //     const expectedPrefix = app.options.network === 'mainnet' ? 'addr1' : 'addr_test1';
+          //     if (!address.startsWith(expectedPrefix)) validations.push({ level: 'err', blocking: true, message: `Destination address must start with "${expectedPrefix}" for ${app.options.network}.` });
+          //   }
+          //   if (returnUrl && !/^https:\/\//.test(returnUrl)) validations.push({ level: 'warn', blocking: false, message: 'Return URL should usually use HTTPS.' });
+          // }
+          // if (key === 'stakeDelegation') {
+          //   const ticker = text(code.args?.ticker);
+          //   if (ticker && ticker.length < 3) validations.push({ level: 'warn', blocking: false, message: 'Ticker is usually at least 3 characters.' });
+          // }
+          app.ui.fieldStatus = validations[0]?.message || '';
+          app.ui.fieldStatusLevel = validations[0]?.level || '';
+          app.ui.actionDisabled = !!validations.find((item) => item.blocking) || !!app.ui.migrationNeeded;
+
+          app.ui.intentSummary = {
+            title: code.title || app.defaultIntents[key]?.label || 'Continue',
+            lead: code.description || app.defaultIntents[key]?.description || '',
+            sub: ''
+          };
+        },
+
+        /**
+         * Example custom UI renderer.
+         *
+         * The connected wallet widget is intentionally implemented here as a
+         * customization example.
+         *
+         * When enabled, the widget renders whenever a connected wallet exists
+         * or a default `connect` intent is available:
+         * - connected wallet present: show wallet chip even without a default
+         *   `connect` intent
+         * - no connected wallet: only show the connect button when a default
+         *   `connect` intent is available
+         */
+        render(app) {
+          const widget = $('connect-widget');
+          const connectButton = $('connect-wallet-btn');
+          const connectedBox = $('connected-wallet');
+          const ticketsSection = $('tickets-section');
+          const ticketsGrid = $('tickets-grid');
+          if (!widget || !connectButton || !connectedBox || !ticketsSection || !ticketsGrid) return;
+
+          const wallet = app.custom.connectedWallet;
+          const hasConnectIntent = !!app.defaultIntents.connect;
+          const enabled = !!app.options.useConnect && (!!wallet || hasConnectIntent);
+          // const explorerBase = app.options.network === 'mainnet'
+          //   ? 'https://cardanoscan.io/transaction/'
+          //   : `https://${app.options.network}.cardanoscan.io/transaction/`;
+          const explorerLink = (txHash)=>`https://wallet.gamechanger.finance/transaction/${txHash}?networkTag=${app.options.network}`;
+
+          widget.classList.toggle('hidden', !enabled);
+          connectButton.classList.toggle('hidden', !enabled || !!wallet || !hasConnectIntent);
+          connectedBox.classList.toggle('hidden', !enabled || !wallet);
+
+          ticketsSection.classList.toggle('hidden', !app.ui.showTicketList);
+          ticketsGrid.innerHTML = app.ui.showTicketList
+            ? (app.ui.ticketList || []).map((ticketItem) => {
+                const txHash = text(ticketItem?.txHash);
+                const policyId = text(ticketItem?.ticketToken?.policyId);
+                const assetName = text(ticketItem?.ticketToken?.assetName);
+                const selected = txHash && app.ui.selectedTicketTxHash === txHash;
+                const purchaseDate = slotNoToDate(app.options.network, ticketItem?.ttl?.from);
+                return [
+                  `<article id="ticket-card-${txHash}" title={${JSON.stringify({policyId,assetName})}"} class="ticket-card${selected ? ' ticket-card--selected' : ''}" data-ticket-tx-hash="${txHash}" tabindex="0" role="button" aria-label="Ticket #${text(ticketItem?.ticketNumber)}">`,
+                  `  <div class="ticket-card__eyebrow">Ticket #</div>`,
+                  `  <h3 class="ticket-card__number">${text(ticketItem?.ticketNumber)}</h3>`,
+                  `  <a class="ticket-card__link" href="${explorerLink(txHash)}" target="_blank" rel="noopener noreferrer">${truncate({ value: txHash, start: 12, end: 10 })}</a>`,
+                  `  <div class="ticket-card__footer">`,
+                  `    <div class="ticket-card__footer-label">Purchased</div>`,
+                  `    <div>${purchaseDate ? purchaseDate.toLocaleString() : 'Unknown date'}</div>`,
+                  `  </div>`,
+                  `</article>`
+                ].join('');
+              }).join('')
+            : '';
+
+          if (app.ui.selectedTicketTxHash && app.ui.focusedTicketTxHash !== app.ui.selectedTicketTxHash) {
+            const selectedTicket = $(`ticket-card-${app.ui.selectedTicketTxHash}`);
+            if (selectedTicket) {
+              selectedTicket.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              app.ui.focusedTicketTxHash = app.ui.selectedTicketTxHash;
+            }
+          }
+
+          if (!wallet) return;
+
+          $('connected-wallet-name').textContent = wallet.name || 'Connected wallet';
+          $('connected-wallet-sub').textContent = [wallet.type, wallet.brand].filter(Boolean).join(' · ');
+          $('connected-wallet-address').textContent = truncate({ value: wallet.address, start: 12, end: 10 });
+        },
+
+        /**
+         * Example custom event bindings.
+         *
+         * Add custom buttons or interactive widgets here when they are not part
+         * of the generic autogenerated runtime.
+         */
+        bind(app) {
+          const connectButton = $('connect-wallet-btn');
+          const disconnectButton = $('disconnect-wallet-btn');
+          if (connectButton) {
+            connectButton.onclick = app.defaultIntents.connect
+              ? () => app.openIntent({ intentKey: 'connect' })
+              : null;
+          }
+          if (disconnectButton) {
+            disconnectButton.onclick = () => {
+              app.custom.connectedWallet = undefined;
+              app.dirty = true;
+            };
+          }
+
+          document.querySelectorAll('[data-ticket-tx-hash]').forEach((item) => {
+            item.onclick = (event) => {
+              if (event.target?.closest('a')) return;
+              app.ui.selectedTicketTxHash = item.dataset.ticketTxHash || '';
+              app.ui.focusedTicketTxHash = '';
+            };
+            item.onkeydown = (event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                app.ui.selectedTicketTxHash = item.dataset.ticketTxHash || '';
+                app.ui.focusedTicketTxHash = '';
+              }
+            };
+          });
+        }
+      }
+    });
+
+    /**
+     * Exposes the global reactive app proxy for direct customization.
+     */
+    window.app = app;
+
+    /********************************************************************
+     * ADVANCED AUTOGENERATED RUNTIME
+     *
+     * The helpers below power persistence, rendering, encode/decode,
+     * and lifecycle behavior. They are shared runtime infrastructure and
+     * usually should not be altered in generated apps.
+     ********************************************************************/
+
+    /** Returns a DOM element by its id. */
+    const $ = (id) => document.getElementById(id);
+    /** Converts any value into a safe string. */
+    const text = (value) => String(value ?? '');
+    /** Converts a label into a stable kebab-case fragment for DOM ids. */
+    const kebab = (value) => text(value).replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+    /** Converts a state key into a human-friendly label. */
+    const labelize = (value) => text(value).replace(/[-_]+/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
+    /** Checks whether a value is a plain object-like structure. */
+    function isObject(value) {
+      return !!value && typeof value === 'object' && !Array.isArray(value);
+    }
+
+    /** Deep-clones JSON-safe values used by the runtime state. */
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    /** Deep-merges plain objects while replacing arrays and primitives. */
+    function merge({ base, extra }) {
+      if (!isObject(base)) return clone(extra);
+      const output = clone(base);
+      for (const [key, value] of Object.entries(extra || {})) {
+        output[key] = Array.isArray(value)
+          ? clone(value)
+          : isObject(value) && isObject(output[key])
+            ? merge({ base: output[key], extra: value })
+            : clone(value);
+      }
+      return output;
+    }
+
+    /** Writes a value into a nested path inside an object graph. */
+    function setPath({ root, path, value }) {
+      let ref = root;
+      path.slice(0, -1).forEach((key) => { ref = ref[key]; });
+      ref[path[path.length - 1]] = value;
+    }
+
+    /** Rewrites only the origin/base of a generated wallet URL. */
+    function replaceBaseUrl({ url, urlBase }) {
+      const base = new URL(urlBase);
+      const current = new URL(url, base);
+      const next = new URL(base.href);
+      next.pathname = current.pathname;
+      next.search = current.search;
+      next.hash = current.hash;
+      return next.toString();
+    }
+
+    /** Truncates any text value for compact UI display. */
+    function truncate({ value, start = 12, end = 10 }) {
+      const next = text(value);
+      return next.length > start + end ? `${next.slice(0, start)}…${next.slice(-end)}` : next;
+    }
+
+    /** Loads persisted app state from localStorage. */
+    function loadPersisted({ appId }) {
+      try {
+        return JSON.parse(localStorage.getItem(appId) || 'null');
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    /** Persists the current runtime state. */
+    function savePersisted({ app }) {
+      if (app.ui?.migrationNeeded) return;
+      localStorage.setItem(app.id, JSON.stringify({
+        version: app.version,
+        options: app.options,
+        custom: app.custom,
+        exports: app.exports,
+        lastResult: app.lastResult,
+        ui: { currentIntentKey: app.ui.currentIntentKey },
+        intents: Object.fromEntries(Object.keys(app.intents).map((key) => [key, {
+          code: app.intents[key].code,
+          exports: app.intents[key].exports || {}
+        }]))
+      }));
+    }
+
+    /** Removes persisted runtime state for the current dapp. */
+    function clearPersisted({ app }) {
+      localStorage.removeItem(app.id);
+    }
+
+    /** Reconciles live runtime intents from the current default intents and overrides. */
+    function reconcileIntents({ app, sourceIntents = {} }) {
+      const nextIntents = {};
+      Object.entries(app.defaultIntents || {}).forEach(([key, intent]) => {
+        const current = sourceIntents[key] || {};
+        const code = merge({ base: intent.code || {}, extra: current.code || {} });
+        code.args = merge({ base: intent.code?.args || {}, extra: current.code?.args || {} });
+        nextIntents[key] = {
+          label: intent.label,
+          description: intent.description,
+          code,
+          exports: current.exports || app.intents?.[key]?.exports || {}
+        };
+      });
+      app.intents = nextIntents;
+      if (!app.defaultIntents[app.ui.currentIntentKey]) {
+        app.ui.currentIntentKey = Object.keys(app.defaultIntents)[0] || '';
+      }
+    }
+
+    /** Wraps an object graph in a reactive proxy that schedules updates on writes. */
+    function proxify({ value, onChange, cache }) {
+      if (!isObject(value) && !Array.isArray(value)) return value;
+      if (cache.has(value)) return cache.get(value);
+
+      const internalKeys = { muting: 1, queued: 1, rendering: 1, needsUpdate: 1 };
+      const proxy = new Proxy(value, {
+        get(target, key) {
+          const next = Reflect.get(target, key);
+          return (isObject(next) || Array.isArray(next)) ? proxify({ value: next, onChange, cache }) : next;
+        },
+        set(target, key, next) {
+          Reflect.set(target, key, next);
+          if (!internalKeys[key]) onChange();
+          return true;
+        },
+        deleteProperty(target, key) {
+          delete target[key];
+          if (!internalKeys[key]) onChange();
+          return true;
+        }
+      });
+
+      cache.set(value, proxy);
+      return proxy;
+    }
+
+    /** Schedules one update cycle for the app state proxy. */
+    function queueUpdate({ app }) {
+      if (!app || app.muting) return;
+      if (app.queued || app.rendering) {
+        app.needsUpdate = true;
+        return;
+      }
+      app.queued = true;
+      Promise.resolve().then(() => app.update());
+    }
+
+    /** Removes selected query parameters from the current browser history entry. */
+    function cleanLocationParams({ names }) {
+      const url = new URL(window.location.href);
+      let changed = false;
+      names.forEach((name) => {
+        if (url.searchParams.has(name)) {
+          url.searchParams.delete(name);
+          changed = true;
+        }
+      });
+      if (changed) window.history.replaceState({}, document.title, `${url.pathname}${url.search}${url.hash}`);
+    }
+
+    /** Detects the default control kind for a value when no field override exists. */
+    function inferFieldKind({ value }) {
+      return Array.isArray(value) || isObject(value)
+        ? 'json'
+        : typeof value === 'boolean'
+          ? 'checkbox'
+          : typeof value === 'number'
+            ? 'number'
+            : 'text';
+    }
+
+    /** Parses raw DOM control data back into the right runtime value type. */
+    function parseFieldValue({ raw, kind }) {
+      if (kind === 'checkbox') return !!raw;
+      if (kind === 'number') {
+        const next = Number(raw);
+        return Number.isFinite(next) ? next : 0;
+      }
+      if (kind === 'json') {
+        const value = text(raw).trim();
+        return value ? JSON.parse(value) : {};
+      }
+      return text(raw);
+    }
+
+    /**
+     * Builds a raw field list from any JSON object and an optional field schema.
+     *
+     * This helper is implementation-agnostic and can be reused in other
+     * renderers such as React or server-side HTML builders.
+     */
+    function inferFieldsFromJSON({ json = {}, fieldConfig = {}, pathPrefix = [] }) {
+      const fields = [];
+
+      Object.entries(json || {}).forEach(([name, value]) => {
+        const config = fieldConfig[name] || {};
+        fields.push({
+          name,
+          label: config.label || labelize(name),
+          kind: config.kind || inferFieldKind({ value }),
+          options: config.options || [],
+          placeholder: config.placeholder || '',
+          full: config.full === true || config.kind === 'json' || config.kind === 'textarea' || config.kind === 'html',
+          value,
+          path: [...pathPrefix, name],
+          onInput: config.onInput,
+          onChange: config.onChange,
+          action: config.action,
+          html: config.html || ''
+        });
+      });
+
+      Object.entries(fieldConfig || {}).forEach(([name, config]) => {
+        if (json[name] !== undefined || config.hidden) return;
+        fields.push({
+          name,
+          label: config.label || labelize(name),
+          kind: config.kind || 'button',
+          options: config.options || [],
+          placeholder: config.placeholder || '',
+          full: config.full === true,
+          value: config.value,
+          path: config.path || null,
+          onInput: config.onInput,
+          onChange: config.onChange,
+          action: config.action,
+          html: config.html || ''
+        });
+      });
+
+      return fields;
+    }
+
+    /** Creates one DOM control from a resolved field definition. */
+    function createControl({ app, field, formId }) {
+      const write = ({ raw, eventName }) => {
+        try {
+          const next = parseFieldValue({ raw, kind: field.kind });
+          if (field.path) setPath({ root: app, path: field.path, value: next });
+          if (field[eventName]) field[eventName]({ app, field, value: next });
+          app.dirty = true;
+        } catch (error) {
+          app.status = error.message || 'Invalid field value';
+        }
+      };
+
+      if (field.kind === 'button') {
+        const node = document.createElement('button');
+        node.type = 'button';
+        node.className = 'btn btn--ghost';
+        node.textContent = field.label;
+        node.onclick = () => field.action && field.action({ app, field });
+        return node;
+      }
+
+      if (field.kind === 'html') {
+        const node = document.createElement('div');
+        node.className = 'control';
+        node.innerHTML = field.html;
+        return node;
+      }
+
+      if (field.kind === 'checkbox') {
+        const row = document.createElement('label');
+        row.className = 'checkbox';
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = `${formId}-${kebab(field.name)}-input`;
+        input.checked = !!field.value;
+        input.onchange = (event) => write({ raw: event.target.checked, eventName: 'onChange' });
+        row.appendChild(input);
+        const span = document.createElement('span');
+        span.textContent = 'Enabled';
+        row.appendChild(span);
+        return row;
+      }
+
+      const input = document.createElement(
+        field.kind === 'textarea' || field.kind === 'json'
+          ? 'textarea'
+          : field.kind === 'select'
+            ? 'select'
+            : 'input'
+      );
+
+      input.id = `${formId}-${kebab(field.name)}-input`;
+      input.className = 'control';
+      if (field.placeholder) input.placeholder = field.placeholder;
+
+      if (field.kind === 'select') {
+        field.options.forEach((item) => {
+          const option = document.createElement('option');
+          option.value = item.value;
+          option.textContent = item.label;
+          option.selected = item.value === field.value;
+          input.appendChild(option);
+        });
+        input.onchange = (event) => write({ raw: event.target.value, eventName: 'onChange' });
+        return input;
+      }
+
+      if (field.kind !== 'textarea' && field.kind !== 'json') input.type = field.kind === 'number' ? 'number' : 'text';
+      input.value = field.kind === 'json'
+        ? JSON.stringify(field.value || {}, null, 2)
+        : field.kind === 'number'
+          ? String(field.value ?? 0)
+          : text(field.value);
+
+      input.oninput = (event) => {
+        write({ raw: event.target.value, eventName: 'onInput' });
+      };
+      input.onchange = (event) => {
+        write({ raw: event.target.value, eventName: 'onChange' });
+      };
+
+      return input;
+    }
+
+    /** Renders a list of resolved fields into a target container. */
+    function renderFields({ app, root, fields, formId }) {
+      const active = document.activeElement;
+      const focus = active && root.contains(active) && active.id
+        ? { id: active.id, start: active.selectionStart, end: active.selectionEnd }
+        : null;
+
+      root.innerHTML = '';
+      fields.forEach((field) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'field' + (field.full ? ' field--full' : '');
+        wrapper.id = `${formId}-${kebab(field.name)}-field`;
+
+        if (!['button', 'html'].includes(field.kind)) {
+          const title = document.createElement('label');
+          title.setAttribute('for', `${formId}-${kebab(field.name)}-input`);
+          title.textContent = field.label;
+          wrapper.appendChild(title);
+        }
+
+        wrapper.appendChild(createControl({ app, field, formId }));
+        root.appendChild(wrapper);
+      });
+
+      if (focus) {
+        const node = document.getElementById(focus.id);
+        if (node) {
+          try {
+            node.focus();
+            if (typeof node.setSelectionRange === 'function') {
+              node.setSelectionRange(focus.start, focus.end ?? focus.start);
+            }
+          } catch (_error) { }
+        }
+      }
+    }
+
+    /** Builds the clean return URL pattern used by wallet intents. */
+    function buildReturnUrl() {
+      const url = new URL(window.location.href);
+      return `${url.origin}${url.pathname}${url.hash}`;
+    }
+
+    /** Encodes one intent into a GameChanger wallet URL. */
+    async function buildIntentUrl({ app, intentKey }) {
+      if (!window.gc?.encode?.url) throw new Error('GameChanger library not loaded');
+      const source = clone(app.intents[intentKey]?.code || {});
+      const code = typeof app.config.getIntentCode === 'function'
+        ? app.config.getIntentCode({ app, intentKey, code: source })
+        : source;
+
+      let url = await window.gc.encode.url({
+        input: JSON.stringify(code),
+        apiVersion: "2",
+        network: app.options.network,
+        encoding: app.options.encoding,
+        refAddress: app.options.refAddress || undefined,
+        disableNetworkRouter: !!app.options.disableNetworkRouter,
+        urlPattern: "https://wallet.gamechanger.finance/api/2/run/{gcscript}"
+      })
+      //.catch(err=>{console.error(err)});
+
+      if (app.options.walletBaseUrl) {
+        url = replaceBaseUrl({ url, urlBase: app.options.walletBaseUrl });
+      }
+
+      return url;
+    }
+
+    /** Encodes one intent into a QR payload. */
+    async function buildIntentQr({ app, intentKey, qrResultType }) {
+      const source = clone(app.intents[intentKey]?.code || {});
+      const code = typeof app.config.getIntentCode === 'function'
+        ? app.config.getIntentCode({ app, intentKey, code: source })
+        : source;
+
+      return await window.gc.encode.qr({
+        input: JSON.stringify(code),
+        apiVersion: "2",
+        network: app.options.network,
+        encoding: app.options.encoding,
+        refAddress: app.options.refAddress || undefined,
+        disableNetworkRouter: !!app.options.disableNetworkRouter,
+        urlPattern: "https://wallet.gamechanger.finance/api/2/run/{gcscript}",
+        qrResultType: qrResultType || 'png'
+      }).catch(err => { console.error(err) });
+    }
+
+    /** Opens an encoded intent in a popup or in the current tab. */
+    async function openIntent({ app, intentKey }) {
+      const key = intentKey || app.ui.currentIntentKey;
+      const url = await buildIntentUrl({ app, intentKey: key });
+
+      if (!app.options.usePopup) {
+        window.location.href = url;
+        return url;
+      }
+
+      window.open(url, 'gc_udc_popup', app.options.popupFeatures || 'noopener,width=480,height=720');
+      return url;
+    }
+
+    /** Decodes one wallet response payload and merges its exports into app state. */
+    async function decodeWalletResultValue({ app, resultValue }) {
+      if (!resultValue || !window.gc?.encodings?.msg?.decoder) throw new Error('GameChanger decoder not loaded');
+
+      const decoded = await window.gc.encodings.msg.decoder(resultValue);
+      const exportsValue = decoded?.exports || {};
+      const key = Object.keys(exportsValue).find((name) => app.defaultIntents[name]) || app.ui.currentIntentKey || Object.keys(app.defaultIntents)[0] || '';
+
+      if (key && app.intents[key]) {
+        app.intents[key].exports = merge({ base: app.intents[key].exports || {}, extra: exportsValue });
+      }
+
+      app.exports = merge({ base: app.exports || {}, extra: exportsValue });
+      app.lastResult = { intentKey: key, at: new Date().toISOString(), exports: exportsValue };
+      app.result = { decoded, exports: exportsValue, intentKey: key };
+
+      if (typeof app.config.onResultCaptured === 'function') {
+        app.config.onResultCaptured({ app, result: app.result });
+      }
+
+      return { decoded, exportsValue, intentKey: key };
+    }
+
+    /** Decodes wallet return data from the URL, merges exports, and closes popups. */
+    async function captureWalletResult({ app }) {
+      const url = new URL(window.location.href);
+      const resultValue = url.searchParams.get('result');
+      if (!resultValue || !window.gc?.encodings?.msg?.decoder) return false;
+
+      await decodeWalletResultValue({ app, resultValue });
+
+      window.history.replaceState({}, document.title, `${url.pathname}${url.hash}`);
+      savePersisted({ app });
+
+      try {
+        window.close();
+        setTimeout(() => {
+          try {
+            window.open('', '_self');
+            window.close();
+          } catch (_error) { }
+        }, 30);
+      } catch (_error) { }
+
+      return true;
+    }
+
+    /** Applies persisted runtime data to the current app proxy. */
+    function applyPersisted({ app, data }) {
+      const next = data || {};
+
+      app.options = merge({ base: app.config.defaults.options || {}, extra: next.options || {} });
+      app.custom = merge({ base: app.config.defaults.custom || {}, extra: next.custom || {} });
+      app.exports = next.exports || clone(app.config.exports) || {};
+      app.lastResult = next.lastResult || null;
+
+      reconcileIntents({ app, sourceIntents: next.intents || app.intents || {} });
+
+      const currentKey = next.ui?.currentIntentKey || app.ui.currentIntentKey;
+      app.ui.currentIntentKey = app.defaultIntents[currentKey] ? currentKey : Object.keys(app.defaultIntents)[0] || '';
+      app.ui.actionSignature = '';
+    }
+
+    /** Creates the global reactive app state proxy. */
+    function createApp({ config }) {
+      const stored = loadPersisted({ appId: config.id }) || {};
+      let app;
+
+      const state = {
+        id: config.id,
+        version: config.version,
+        title: config.title,
+        description: config.description,
+        config,
+        defaultIntents: config.defaultIntents,
+        intents: {},
+        options: merge({ base: config.defaults.options || {}, extra: stored.options || {} }),
+        custom: merge({ base: config.defaults.custom || {}, extra: stored.custom || {} }),
+        exports: stored.exports || {},
+        lastResult: stored.lastResult || null,
+        result: null,
+        status: '',
+        dirty: false,
+        queued: false,
+        rendering: false,
+        needsUpdate: false,
+        muting: false,
+        ui: {
+          currentIntentKey: stored.ui?.currentIntentKey || Object.keys(config.defaultIntents)[0] || '',
+          showOptions: false,
+          showDebug: false,
+          showIntentSelect: false,
+          showThemeSelect: false,
+          showAction: false,
+          showOptionsToggle: false,
+          hasArgs: false,
+          currentFields: [],
+          optionFields: [],
+          intentSummary: { title: '', lead: '', sub: '' },
+          actionUrl: '',
+          actionSignature: '',
+          fieldStatus: '',
+          fieldStatusLevel: '',
+          actionStatusLevel: '',
+          actionDisabled: false,
+          actionQr: '',
+          actionQrError: '',
+          actionSectionDisabled: false,
+          showQR: false,
+          migrationNeeded: !!(stored.version && stored.version !== config.version),
+          migrationSourceVersion: stored.version || '',
+          queryHandled: false,
+          resultHandled: false
+        }
+      };
+
+      app = proxify({ value: state, onChange: () => queueUpdate({ app }), cache: new WeakMap() });
+
+      Object.defineProperties(state, {
+        update: { value: () => update(app), enumerable: false },
+        openIntent: { value: ({ intentKey } = {}) => openIntent({ app, intentKey: intentKey || app.ui.currentIntentKey }), enumerable: false },
+        buildIntentUrl: { value: ({ intentKey } = {}) => buildIntentUrl({ app, intentKey: intentKey || app.ui.currentIntentKey }), enumerable: false },
+        buildIntentQr: { value: ({ intentKey, qrResultType } = {}) => buildIntentQr({ app, intentKey: intentKey || app.ui.currentIntentKey, qrResultType }), enumerable: false },
+        resetIntent: {
+          value: ({ intentKey } = {}) => {
+            const key = intentKey || app.ui.currentIntentKey;
+            if (!app.defaultIntents[key]) return;
+            const code = merge({ base: app.defaultIntents[key].code || {}, extra: {} });
+            code.args = merge({ base: app.defaultIntents[key].code?.args || {}, extra: {} });
+            app.intents[key] = { label: app.defaultIntents[key].label, description: app.defaultIntents[key].description, code, exports: app.intents[key]?.exports || {} };
+          },
+          enumerable: false
+        },
+        resetStorage: {
+          value: () => {
+            clearPersisted({ app });
+            applyPersisted({ app, data: {} });
+            //TODO: should reset all intents!
+            app.resetIntent(app.ui?.currentIntentKey);
+            app.ui.showOptions = false;
+          },
+          enumerable: false
+        }
+      });
+
+      applyPersisted({ app, data: stored });
+      return app;
+    }
+
+    /** Runs one business-logic pass before render(). */
+    async function logic(app) {
+      reconcileIntents({ app, sourceIntents: app.intents || {} });
+
+      if (!app.ui.queryHandled) {
+        const url = new URL(window.location.href);
+        if (url.searchParams.has('options')) {
+          app.options.useOptions = url.searchParams.get('options') === 'true';
+          cleanLocationParams({ names: ['options'] });
+        }
+        if (url.searchParams.has('intent')) {
+          const key = url.searchParams.get('intent');
+          if (app.defaultIntents[key]) app.ui.currentIntentKey = key;
+        }
+        app.ui.queryHandled = true;
+      }
+
+      if (!app.ui.resultHandled) {
+        app.ui.resultHandled = true;
+        await captureWalletResult({ app });
+      }
+
+      if (!app.defaultIntents[app.ui.currentIntentKey]) {
+        app.ui.currentIntentKey = Object.keys(app.defaultIntents)[0] || '';
+      }
+
+      app.config.logic(app);
+
+      const signature = JSON.stringify({
+        key: app.ui.currentIntentKey,
+        options: {
+          network: app.options.network,
+          encoding: app.options.encoding,
+          walletBaseUrl: app.options.walletBaseUrl,
+          refAddress: app.options.refAddress,
+          disableNetworkRouter: app.options.disableNetworkRouter
+        },
+        code: app.intents[app.ui.currentIntentKey]?.code || {},
+        custom: app.custom
+      });
+
+      if (signature !== app.ui.actionSignature) {
+        app.ui.actionSignature = signature;
+        try {
+          app.ui.actionUrl = await buildIntentUrl({ app, intentKey: app.ui.currentIntentKey });
+          app.ui.actionQrError = '';
+          try {
+            const qrValue = await buildIntentQr({ app, intentKey: app.ui.currentIntentKey, qrResultType: 'png' });
+            app.ui.actionQr = text(qrValue || '');
+            if (!app.ui.actionQr) app.ui.actionQrError = 'QR code returned an empty payload.';
+          } catch (error) {
+            app.ui.actionQr = '';
+            app.ui.actionQrError = error.message || 'Failed to render QR code';
+          }
+          if (!app.dirty) {
+            app.status = '';
+            app.ui.actionStatusLevel = '';
+          }
+        } catch (error) {
+          app.ui.actionUrl = '';
+          app.ui.actionQr = '';
+          app.ui.actionQrError = '';
+          app.status = error.message || 'Failed to build URL';
+          app.ui.actionStatusLevel = 'err';
+        }
+      }
+    }
+
+    /** Renders the current app state into the DOM. */
+    function render(app) {
+      document.body.dataset.theme = app.options.theme;
+      document.title = app.title;
+      $('app-title').textContent = app.title;
+      $('app-copy').textContent = app.description;
+
+      $('theme-select').classList.toggle('hidden', !app.ui.showThemeSelect);
+      $('theme-select').value = app.options.theme;
+
+      $('intent-select-field').classList.toggle('hidden', !app.ui.showIntentSelect);
+      if (app.ui.showIntentSelect) {
+        const select = $('intent-select');
+        if (select.dataset.count !== String(Object.keys(app.defaultIntents).length)) {
+          select.innerHTML = '';
+          Object.keys(app.defaultIntents).forEach((key) => {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = app.defaultIntents[key].label;
+            select.appendChild(option);
+          });
+          select.dataset.count = String(Object.keys(app.defaultIntents).length);
+        }
+        select.value = app.ui.currentIntentKey;
+      }
+
+      $('intent-meta').innerHTML = [
+        `<h2 class="intent-meta__title">${app.ui.intentSummary.title}</h2>`,
+        `<p class="intent-meta__lead">${app.ui.intentSummary.lead}</p>`,
+        app.ui.intentSummary.sub ? `<div class="intent-meta__sub">${app.ui.intentSummary.sub}</div>` : '',
+        app.ui.showDebug ? `<div class="intent-meta__sub">Intent key: <code>${app.ui.currentIntentKey}</code></div>` : ''
+      ].join('');
+
+      $('args-section').classList.toggle('hidden', !(app.ui.hasArgs && app.ui.showArgFields));
+      $('reset-args-btn').classList.toggle('hidden', !(app.ui.hasArgs && app.ui.showArgFields));
+      if (app.ui.hasArgs && app.ui?.showArgFields) {
+        renderFields({ app, root: $('args-form'), fields: app.ui.currentFields, formId: 'intent-args' });
+      } else {
+        $('args-form').innerHTML = '';
+      }
+
+      $('options-panel').classList.toggle('hidden', !app.ui.showOptions);
+      if (app.ui.showOptions) {
+        renderFields({ app, root: $('options-form'), fields: app.ui.optionFields, formId: 'app-options' });
+      } else {
+        $('options-form').innerHTML = '';
+      }
+
+      $('toggle-options-btn').classList.toggle('hidden', !app.ui.showOptionsToggle);
+      $('actions-section').classList.toggle('hidden', !!app.ui.actionSectionDisabled);
+      $('action-status').classList.toggle('hidden', !!app.ui.actionSectionDisabled);
+      $('field-status').classList.toggle('hidden', !!app.ui.actionSectionDisabled);
+      $('copy-url-btn').classList.toggle('hidden', !app.ui.showAction || !!app.ui.actionSectionDisabled);
+      $('qr-link').classList.toggle('hidden', !app.ui.showAction || !app.ui.showQR || !!app.ui.actionSectionDisabled || app.ui.actionDisabled || !app.ui.actionUrl);
+      $('connect-link').classList.toggle('hidden', !app.ui.showAction || !!app.ui.actionSectionDisabled);
+      $('connect-link').href = app.ui.actionUrl || '#';
+      $('connect-link').textContent = app.ui.actionUrl ? 'Continue' : 'Loading...';
+      $('qr-link').href = app.ui.actionQr || '#';
+      $('copy-url-btn').disabled = !!app.ui.actionDisabled || !app.ui.actionUrl;
+      $('qr-link').setAttribute('aria-disabled', app.ui.actionDisabled || !app.ui.actionUrl || !app.ui.actionQr ? 'true' : 'false');
+      if (app.ui.actionDisabled || !app.ui.actionUrl) $('connect-link').setAttribute('aria-disabled', 'true');
+      else $('connect-link').removeAttribute('aria-disabled');
+
+      $('migration-banner').classList.toggle('hidden', !app.ui.migrationNeeded);
+
+      const debug = $('debug-panel');
+      const layout = $('layout');
+      debug.classList.toggle('hidden', !app.ui.showDebug);
+      layout.classList.toggle('layout--single', !app.ui.showDebug);
+
+      if (app.ui.showDebug) {
+        $('state-intent-key').textContent = app.ui.currentIntentKey || '-';
+        $('state-network').textContent = app.options.network || '-';
+        $('state-intent-count').textContent = String(Object.keys(app.intents).length);
+        $('state-last-result').textContent = app.lastResult?.at ? new Date(app.lastResult.at).toLocaleString() : 'None';
+        $('exports-box').textContent = Object.keys(app.exports || {}).length ? JSON.stringify(app.exports, null, 2) : 'No wallet exports captured yet.';
+        $('exports-box').classList.toggle('empty', !Object.keys(app.exports || {}).length);
+        $('state-box').textContent = JSON.stringify({
+          version: app.version,
+          options: app.options,
+          ui: { currentIntentKey: app.ui.currentIntentKey, showOptions: app.ui.showOptions, showDebug: app.ui.showDebug },
+          custom: app.custom,
+          exports: app.exports,
+          lastResult: app.lastResult,
+          intents: app.intents
+        }, null, 2);
+      }
+
+      $('action-status').textContent = app.status || '';
+      $('action-status').className = 'status' + (app.status ? ` status--${app.ui.actionStatusLevel || (app.ui.actionUrl ? 'ok' : 'err')}` : '');
+      $('field-status').textContent = app.ui.fieldStatus || '';
+      $('field-status').className = 'status' + (app.ui.fieldStatus ? (app.ui.fieldStatusLevel === 'warn' ? ' status--warn' : ' status--err') : '');
+
+      if (typeof app.config.render === 'function') app.config.render(app);
+    }
+
+    /** Attaches DOM event handlers to the current app instance. */
+    function bind(app) {
+      $('theme-select').onchange = (event) => {
+        app.options.theme = event.target.value;
+        app.dirty = true;
+      };
+
+      $('intent-select').onchange = (event) => {
+        app.ui.currentIntentKey = event.target.value;
+        app.dirty = true;
+      };
+
+      $('toggle-options-btn').onclick = () => {
+        app.ui.showOptions = !app.ui.showOptions;
+      };
+
+      $('copy-url-btn').onclick = async () => {
+        if (app.ui.actionDisabled || !app.ui.actionUrl) return;
+        try {
+          await navigator.clipboard.writeText(app.ui.actionUrl || '');
+          app.status = 'Intent URL copied.';
+          app.ui.actionStatusLevel = 'success';
+        } catch (error) {
+          app.status = error.message || 'Failed to copy URL';
+          app.ui.actionStatusLevel = 'err';
+        }
+      };
+
+      $('qr-link').onclick = (event) => {
+        if (app.ui.actionDisabled || !app.ui.actionUrl) {
+          event.preventDefault();
+          return;
+        }
+        if (!app.ui.actionQr) {
+          event.preventDefault();
+          app.status = app.ui.actionQrError || 'QR code could not be rendered.';
+          app.ui.actionStatusLevel = app.ui.actionQrError ? 'err' : 'warn';
+          return;
+        }
+        app.status = 'QR code opened.';
+        app.ui.actionStatusLevel = 'success';
+        if (app.options.usePopup) {
+          const popup = window.open(app.ui.actionQr, 'gc_udc_qr', app.options.popupFeatures || 'noopener,width=480,height=720');
+          if (popup) event.preventDefault();
+        }
+      };
+
+      $('connect-link').onclick = (event) => {
+        if (app.ui.actionDisabled || !app.ui.actionUrl) {
+          event.preventDefault();
+          return;
+        }
+        if (app.options.usePopup) {
+          event.preventDefault();
+          app.openIntent({});
+        }
+      };
+
+      $('reset-args-btn').onclick = () => {
+        app.resetIntent({});
+        app.dirty = true;
+      };
+
+      $('reset-storage-btn').onclick = () => {
+        app.resetStorage();
+        app.dirty = true;
+      };
+
+      $('migration-update-btn').onclick = () => {
+        clearPersisted({ app });
+        applyPersisted({ app, data: {} });
+        app.ui.migrationNeeded = false;
+        app.ui.migrationSourceVersion = '';
+        app.status = 'Stored data updated to the latest version. Previous local data was replaced.';
+        app.ui.actionStatusLevel = 'success';
+        app.dirty = true;
+      };
+
+      window.addEventListener('storage', (event) => {
+        if (event.key !== app.id) return;
+        app.muting = true;
+        applyPersisted({ app, data: loadPersisted({ appId: app.id }) || {} });
+        app.muting = false;
+        queueUpdate({ app });
+      });
+
+      if (typeof app.config.bind === 'function') app.config.bind(app);
+    }
+
+    /** Runs one full update cycle: logic, render, then persistence. */
+    async function update(app) {
+      if (app.rendering) return;
+      app.queued = false;
+      app.rendering = true;
+      app.muting = true;
+      app.needsUpdate = false;
+
+      await logic(app);
+      render(app);
+      savePersisted({ app });
+
+      app.muting = false;
+      app.rendering = false;
+      if (app.needsUpdate) {
+        app.needsUpdate = false;
+        queueUpdate({ app });
+      }
+    }
+
+    /** Boots the dapp, binds events, and runs the first update. */
+    async function main() {
+      bind(app);
+      await app.update();
+    }
+
+    main().catch((error) => {
+      const box = $('action-status');
+      if (box) {
+        box.textContent = error.message || 'Boot failed';
+        box.className = 'status status--err';
+      }
+      console.error(error);
+    });
+
+  </script>
+</body>
+
+</html>
